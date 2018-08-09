@@ -1,0 +1,24 @@
+{
+  "name": "stockfin",
+  "version": "1.0.0",
+  "description": "Stock Market Fundamental Analysis",
+  "main": "app.js",
+  "scripts": {
+    "start-dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramrajani/StockFin.git"
+  },
+  "author": "ram rajani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramrajani/StockFin/issues"
+  },
+  "homepage": "https://github.com/ramrajani/StockFin#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.3"
+  }
+}
