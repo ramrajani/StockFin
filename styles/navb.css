@@ -1,0 +1,24 @@
+.navbar{
+    border: none;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    margin-bottom: 0;
+    height: auto;
+}
+.navbar-brand{
+    height: auto;
+    margin-left: 15px;
+    padding: 5px 0; 
+    width: 200px;
+}
+@media (min-width: 768px){
+    .navbar-brand{
+        width: auto; 
+    }
+}
+.square {
+    background: rgb(0, 0, 0);
+    width: 50vw;
+    height: 50vw;
+}
