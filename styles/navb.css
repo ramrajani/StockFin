@@ -18,7 +18,17 @@
     }
 }
 .square {
-    background: rgb(0, 0, 0);
-    width: 50vw;
-    height: 50vw;
+    background: rgb(29, 224, 110);
+    height:40%
+}
+.row{
+    padding-top:2%;
+}
+.labels{
+    border: 5px solid green;
+    padding:5% 0%;
+   
+}
+.loginpage{
+    padding:10%;
 }

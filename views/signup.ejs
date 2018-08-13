@@ -1,0 +1,26 @@
+<% include partials/header.ejs %>
+
+ 
+<div class="loginpage">
+  
+<div class='labels' align='center'>
+    <div class="labelsplash">
+      
+    <form>
+  <label for ='first'  style="color:brown"><b>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b></label>
+    <input type="email" placeholder='Username' name ="gmail" requird>
+  
+    <br>
+  <label for = 'psd' style="color:brown"><b>Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b></label>
+  <input type='password' placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
+  <br>
+  <span style="color:brown"><b>Confirm Password</b></span> 
+    <input type='password' placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
+  <br>  
+  <input type="submit">
+  </form>
+</div>
+    </div>
+  </div>
+
+<% include partials/footer.ejs %>
