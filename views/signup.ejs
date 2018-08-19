@@ -7,17 +7,17 @@
     <div class="labelsplash">
       
     <form>
-  <label for ='first'  style="color:brown"><b>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b></label>
-    <input type="email" placeholder='Username' name ="gmail" requird>
+     <div>
+    <input type="email" class="input-group-text" placeholder='Username' name ="gmail" requird>
+  </div><div>   
+ 
+  <input type='password' class="input-group-text" placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
+  </div>
+  <div>
   
-    <br>
-  <label for = 'psd' style="color:brown"><b>Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b></label>
-  <input type='password' placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
-  <br>
-  <span style="color:brown"><b>Confirm Password</b></span> 
-    <input type='password' placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
-  <br>  
-  <input type="submit">
+    <input type='password'  class="input-group-text"  placeholder = 'Confirm Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
+    </div>
+    <input type="submit" class="btn btn-success">
   </form>
 </div>
     </div>

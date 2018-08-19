@@ -18,17 +18,20 @@
     }
 }
 .square {
-    background: rgb(29, 224, 110);
+    background: rgb(38, 120, 226);
     height:40%
 }
 .row{
     padding-top:2%;
 }
 .labels{
-    border: 5px solid green;
-    padding:5% 0%;
+    border: 5px solid rgb(38, 120, 226);
+    padding:3% 0%;
    
 }
 .loginpage{
     padding:10%;
+}
+div{
+    padding:1%
 }
