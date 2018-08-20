@@ -23,10 +23,10 @@ public class JobDoer {
 
         String jsonFilname="stockjson";
         JSONObject finalObject=new JSONObject();
-        JSONArray companyArray=new JSONArray();
+        
 
         for(int i=1;i<=8;++i) {
-
+            JSONArray companyArray=new JSONArray();
             readThenWriteJSON("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\"+jsonFilname+""+i+".json", folderName+i+"",companyArray);
             pw = new PrintWriter("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\output\\" + jsonFilname +i+".json");
             finalObject.put("companyArray",companyArray);
