@@ -4,7 +4,7 @@
 
         <div class="col-sm">
                 <div class="square">
-                        <h1>This is a Square</h1>
+                     SENSEX: <h1>This is a Square</h1>
                     </div>
               </div>
        
@@ -16,5 +16,47 @@
 
 </div>
 </div>
+
+
+
+
+<script>
+   
+   $.ajax({
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=^BSESN&apikey=ZFFD1ZZ29ORH8GQJ" ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                  var str ="Series"
+              for(key in data){
+                    if(key.includes(str)){
+                          console.log(data[key]);
+                          var str1 = "2018-08-20";
+                          for(datee in data[key]){
+                             
+                             if(datee.includes(str1)){
+                                   var val = data[key][datee];
+                                   console.log(data[key][datee]);
+                                   var str2="close";
+                                   for(key in val){
+                                         if(key.includes("4")){
+                                               $('h1').html(val[key]);
+                                               console.log(val[key]);
+                                         }
+                                   }
+                             }
+                          }
+                    }
+
+
+              }
+            
+                            }
+                                                     });
+  
+
+
+</script>
 
 <% include partials/footer.ejs %>
