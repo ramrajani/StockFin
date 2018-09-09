@@ -10,8 +10,7 @@
        
               <div class="col-sm">
                     <div class="square">
-                            <h1>This is a Square</h1>
-                        </div>
+                      </div>
                   </div>
 
 </div>
@@ -22,7 +21,8 @@
 
 <script>
    
-   $.ajax({
+
+setInterval($.ajax({
             url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=^BSESN&apikey=ZFFD1ZZ29ORH8GQJ" ,
             type:"GET",
             dataType: 'json',
@@ -53,10 +53,7 @@
               }
             
                             }
-                                                     });
-  
-
-
+                                                     }),100000);
 </script>
 
 <% include partials/footer.ejs %>

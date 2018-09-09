@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const stockname = require("./api/stockname");
 
 app.set("view engine","ejs");
 app.use(express.static(__dirname + '/styles'));
@@ -7,6 +8,11 @@ app.use(express.static(__dirname + '/styles'));
 app.get("/",function(req,res){
     res.render("index");
 });
+app.get("/getstockname",function(req,res){
+    var data = require("./api/datafiles/stockname.json");
+    console.log(data);
+    res.send(data);
+})
 
 app.get("/login",function(req,res){
     res.render("login");
