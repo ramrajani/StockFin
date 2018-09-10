@@ -23,7 +23,7 @@
    
 
 setInterval($.ajax({
-            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=^BSESN&apikey=ZFFD1ZZ29ORH8GQJ" ,
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=^BSESN&apikey=GXO2ZRA29LQ2BE78" ,
             type:"GET",
             dataType: 'json',
             data:{},
@@ -32,9 +32,8 @@ setInterval($.ajax({
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-08-20";
-                          for(datee in data[key]){
-                             
+                          var str1 = "2018-09-10";
+                          for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
                                    console.log(data[key][datee]);

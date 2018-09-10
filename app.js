@@ -12,7 +12,15 @@ app.get("/getstockname",function(req,res){
     var data = require("./api/datafiles/stockname.json");
     console.log(data);
     res.send(data);
-})
+});
+
+app.get("/stocks",function(req,res){
+    var bse = req.query.bse;
+    console.log("----------");
+    console.log(bse);
+    console.log("-----------");
+    res.send("keep moving");
+});
 
 app.get("/login",function(req,res){
     res.render("login");
