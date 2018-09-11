@@ -1,5 +1,3 @@
-package Practice;
-
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,17 +21,18 @@ public class JobDoer {
 
         String jsonFilname="stockjson";
         JSONObject finalObject=new JSONObject();
-        
 
-        for(int i=1;i<=8;++i) {
-            JSONArray companyArray=new JSONArray();
-            readThenWriteJSON("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\"+jsonFilname+""+i+".json", folderName+i+"",companyArray);
-            pw = new PrintWriter("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\output\\" + jsonFilname +i+".json");
+        JSONArray companyArray=new JSONArray();
+        for(int i=8;i<=8;++i) {
+
+            readThenWriteJSON("//home//kjsce//Desktop//files//"+jsonFilname+""+i+".json", folderName+i+"",companyArray);
+            pw = new PrintWriter("//home//kjsce//Desktop//files//output//" + jsonFilname +i+".json");
             finalObject.put("companyArray",companyArray);
             pwf.flush();
             pw.write(finalObject.toJSONString());
 
             pw.flush();
+            break;
 
         }
 
@@ -45,7 +44,7 @@ public class JobDoer {
     }
 
     static void readThenWriteJSON(String name,String foldername,JSONArray companyArray) throws Exception {
-        File f=new File("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\output\\"+foldername +"\\failures.txt");
+        File f=new File("//home//kjsce//Desktop//files//output//"+foldername +"\\failures.txt");
         Object obj = new JSONParser().parse(new FileReader(name));
 
         pwf=new PrintWriter(f);
@@ -86,7 +85,7 @@ public class JobDoer {
 
     static void addExcelData(JSONObject editedCompany) throws Exception {
         String bseCode = (String) editedCompany.get("bse");
-        File f = new File("C:\\Users\\Tushar\\IdeaProjects\\JavaCP\\src\\Practice\\stocks1\\" + bseCode + ".xlsx");
+        File f = new File("//home//kjsce//Desktop//files//stocks8//" + bseCode + ".xlsx");
         FileInputStream fis = new FileInputStream(f);
         XSSFWorkbook wb = new XSSFWorkbook(fis);
         XSSFSheet s1 = wb.getSheetAt(5);
@@ -110,8 +109,8 @@ public class JobDoer {
             for (int i = start; i < end; ++i) {
 
                 String test= s1.getRow(i).getCell(0).toString();
-                       test=test.replaceAll("\\s+","");
-                        al.add(test);
+                test=test.replaceAll("\\s+","");
+                al.add(test);
 
             }
             hm.put(parameter,al);
@@ -121,8 +120,8 @@ public class JobDoer {
             String date = "";
             try {
                 date = s1.getRow(start - 1).getCell(ind).toString();
-                int len = date.length();
-                date = date.substring(len - 4, len);
+
+
             } catch (Exception e) {
                 break;
             }
