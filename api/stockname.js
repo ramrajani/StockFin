@@ -1,6 +1,12 @@
-module.export=function stock(){
-    var data = require("./datafiles/stockjson.json");
+module.exports={
+
+  stock:function(){
+
+    var data = require("./datafiles/stockname.json");
     console.log(data);
  
   return(data);
+
+  }
+    
 }

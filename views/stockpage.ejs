@@ -1,0 +1,99 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+
+        <div class="card">
+                <h5 class="card-header" id="stocknameshow"></h5>
+                <div class="card-body">
+                  <h5 class="card-title" id="stockpriceshow"></h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+
+</div>
+
+
+
+
+<script>
+     var a = <%=bse%> ;
+  // getting stockname
+
+$.ajax({
+url:"http://localhost:3000/getstockname",
+type:"GET",
+dataType: 'json',
+data:{},
+headers: {
+'Content-Type':'application/json' 
+},
+success:function(data) {
+for(var i=0;i<data.companyarray.length;i++){
+    if(data.companyarray[i].bse==a){
+     var sharename = data.companyarray[i].sharename;
+       $('#stocknameshow').html(sharename);
+       console.log("name set "+ sharename);
+    
+    }
+}
+
+}
+});
+//getting stock price
+
+$.ajax({
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=BSE:"+a+"&apikey=FSOT7PX5KBS58O79" ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                  var str ="Series"
+              for(key in data){
+                    if(key.includes(str)){
+                          console.log(data[key]);
+                          var str1 = "2018-09-12";
+                          for(datee in data[key]){    
+                             if(datee.includes(str1)){
+                                   var val = data[key][datee];
+                                   console.log(data[key][datee]);
+                                   var str2="close";
+                                   for(key in val){
+                                         if(key.includes("4")){
+                                               $('#stockpriceshow').html(val[key]);
+                                               console.log(val[key]);
+                                         }
+                                   }
+                             }
+                          }
+                    }
+
+
+              }
+            
+                            }
+                                                     });
+
+
+
+
+      
+
+
+
+
+  
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<% include partials/footer.ejs %>
