@@ -17,10 +17,16 @@
         width: auto; 
     }
 }
+
 .square {
-    background: rgb(38, 120, 226);
-    height:40%
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.4;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
 }
+
+
 .row{
     padding-top:2%;
 }
@@ -34,4 +40,14 @@
 }
 div{
     padding:1%
+}
+p {
+    text-indent: 50px;
+    text-align: justify;
+    letter-spacing: 3px;
+}
+
+a {
+    text-decoration: none;
+    color: #008CBA;
 }

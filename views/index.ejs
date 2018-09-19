@@ -1,15 +1,34 @@
 <% include partials/header.ejs %>
+
+<style>
+body {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLX7O-4i1a2W5VJHv5zKwRNRSto72ZONrk8LEw5C8bYhD0IW_W8g");
+      -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} 
+.
+ 
+</style>
+
 <div class="container">
   <div class="row">
 
         <div class="col-sm">
-                <div class="square">
+                <div  class= "square" id="sensex" style=height:100px;">
                      SENSEX: <h1>This is a Square</h1>
                     </div>
               </div>
        
               <div class="col-sm">
-                    <div class="square">
+                    <div  class = "square" id="scrnews" style="overflow:scroll; height:400px;">
+                        <div class ="txt">
+                        <ul id="news">
+                          
+                        </ul>
+                        </div>
+                        
                       </div>
                   </div>
 
@@ -20,6 +39,40 @@
 
 
 <script>
+var url = 'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9233d93e3f414c119fbfaf44b8dc414b';
+var req = new Request(url);
+var newlist=[];
+fetch(req)
+    .then(function(response) {
+        return response.json();
+    }).then(function(myJson){
+      var array=myJson.articles;
+      //console.log(array);
+      for( var i=0; i<array.length;++i){
+        console.log(array[i].title);
+        newlist.push(array[i].title);
+        var newLI = document.createElement("li");
+        var item = newlist[i];
+
+        
+        var newContent = document.createTextNode(item);
+
+        var link = document.createElement("a");
+      link.setAttribute("href",array[i].url);
+      
+      link.appendChild(newContent);
+
+
+        newLI.appendChild(link);
+
+       
+        var tp = document.getElementById("news");     
+
+        tp.appendChild(newLI);
+      }
+
+    })
+   
    
 
 setInterval($.ajax({
@@ -32,7 +85,7 @@ setInterval($.ajax({
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-09-10";
+                          var str1 = "2018-09-19";
                           for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
@@ -52,7 +105,8 @@ setInterval($.ajax({
               }
             
                             }
-                                                     }),100000);
+                                                     }),10000);
+                                                     
 </script>
 
 <% include partials/footer.ejs %>
