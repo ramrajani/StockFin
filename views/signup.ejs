@@ -1,22 +1,19 @@
 <% include partials/header.ejs %>
-
+<% include partials/middle.ejs %>
  
 <div class="loginpage">
   
 <div class='labels' align='center'>
     <div class="labelsplash">
       
-    <form>
+    <form action="/register" method="POST">
      <div>
-    <input type="email" class="input-group-text" placeholder='Username' name ="gmail" requird>
+    <input type="email" class="input-group-text" placeholder='Username' name ="email" requird>
   </div><div>   
  
-  <input type='password' class="input-group-text" placeholder = 'Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
+  <input type='password' class="input-group-text" placeholder = 'Password' name='password' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
   </div>
-  <div>
   
-    <input type='password'  class="input-group-text"  placeholder = 'Confirm Password' name='psd' pattern=".{3,15}" required title="3 characters minimum and 15 maximum">
-    </div>
     <input type="submit" class="btn btn-success">
   </form>
 </div>

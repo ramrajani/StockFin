@@ -1,4 +1,6 @@
 <% include partials/header.ejs %>
+<% include partials/middle.ejs %>
+
 <div class="container">
   <div class="row">
 
@@ -20,9 +22,8 @@
 
 
 <script>
-   
-
-setInterval($.ajax({
+   function sensexvalue(){
+      $.ajax({
             url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=^BSESN&apikey=GXO2ZRA29LQ2BE78" ,
             type:"GET",
             dataType: 'json',
@@ -52,7 +53,11 @@ setInterval($.ajax({
               }
             
                             }
-                                                     }),100000);
+                                                     });
+
+   }
+
+setInterval(sensexvalue,100000);
 </script>
 
 <% include partials/footer.ejs %>

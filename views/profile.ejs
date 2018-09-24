@@ -1,0 +1,135 @@
+<% include partials/header.ejs %>
+<% include partials/middle.ejs %>
+
+<div class="container-fluid emp-profile">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img id="profileimage"src="https://www.famousbirthdays.com/faces/cerny-amanda-image.jpg" alt="">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                        <h5>
+                            <span id="name"></span>
+                        </h5>
+                        <h6>
+                            <span id="occupation1"></span>
+                        </h6>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link" id="hometab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">About</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="portfoliotab" data-toggle="tab"  role="tab" aria-controls="messages" aria-selected="false">Portfolio</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button class="profile-edit-btn"><a href="/editprofile"> edit</a></button>
+        </div>
+    </div>
+       
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <p>Profiles</p>
+
+                <a href="codechef">LinkedIn Link</a><br/>
+                
+                <p>Personal Details</p>
+                <ul style="list-style-type:none; text-align: left; padding: 0px">
+                    <li ><strong>City:</strong> <span id="city"></span></li>
+                    <li><strong>State:</strong> <span id="state"></span></li>
+                    <li><strong>Country:</strong> <span id="country"></span></li>
+                    <li><strong>Occupation:</strong> <span id="occupation"></span></li>
+                    <li><strong>Organization:</strong> <span id="organization"></span></li>
+                </ul>
+            </div>
+        </div>
+                 
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">  
+             </div> 
+            
+        </div>
+
+       </div> 
+</div>
+
+
+<script>
+
+     var user = <%- JSON.stringify(CurrentUser) %>;
+    console.log(user);
+    if(user.image){
+    $("#profileimage").attr('src',user.image);
+}
+if(user.fullname){
+    $('#name').text(user.fullname);
+    $('#fullname').text(user.username);
+}
+if(user.city){
+    $('#city').text(user.city);
+
+}
+if(user.state){
+    $('#state').text(user.state);
+}
+if(user.country){
+    $('#country').text(user.country);
+}
+if(user.occupation){
+    $('#occupation').text(user.occupation);
+    $('#occupation1').text(user.occupation);
+    
+}
+if(user.organization){
+    $('#organization').text(user.organization);
+}
+
+function  cont(){
+    
+    $('#myTabContent').children().remove();
+    var  userdetails='';
+    userdetails+='<div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="home-tab"><div class="row"><div class="col-md-6" ><label>User Id </></div><div class="col-md-6"><p>'+user.username+'</p></div></div><div class="row"><div class="col-md-6"><label>Name</label></div><div class="col-md-6"><p>'+user.fullname+'</p></div></div><div class="row"><div class="col-md-6"><label>Email</label></div><div class="col-md-6"><p>'+user.emailid+'</p></div></div><div class="row"><div class="col-md-6"><label>Profession</label></div><div class="col-md-6"><p>'+user.occupation+'</p></div></div></div>' ;
+  
+     console.log(user);
+    $('#myTabContent').append(userdetails);
+
+
+  }
+
+
+cont();
+$('#hometab').on("click",cont);
+
+
+  $("#porofoliotab").on("click",function(){
+    $('#myTabContent').children().remove();
+    var portfoliosection = '<section class="card card-inverse bg-light"><div class="card-body"><h5>Problems solved:</h5>';
+   
+   var stocksdisplay ='';
+user.portfolio.forEach(function(problem){
+  
+  
+  
+    stocksdisplay+='<section class="card card-inverse bg-light"><div class="card-body"><div class="row"><div class="col-md-9"><p>Stock name: '+problem.stockname+'</p></div>< div class="col-md-3">Current price:</div></div><div class="row"><div class="col-md-4">Bought at:'+problem.boughtat+'</div><div class="col-md-4">code:'+  problem.bsecode+'</div><div class="col-md-4">Number of stocks:'+problem.numberofstocks+'</div></div> </div></div></section> </section> ';
+});
+
+    $('#myTabContent').append('<div class="row"><button id="sent" class="nav-link">Sent Messages</button><button id="received" class="nav-link">received Messages</button><button id="send" class="nav-link">Send a Message</button></div> <div class="tab-content profile-tab messagecontent"></div>');
+
+
+
+  });
+
+
+
+
+</script>
+
+
+<% include partials/footer.ejs %>
