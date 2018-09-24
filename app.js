@@ -67,7 +67,7 @@ app.post("/register",function(req,res){
   console.log(req.body);
 
     User.register(new User({ 
-     emailid:req.body.email
+     username:req.body.email
                          }),req.body.password,function(err,user){
                 if(err){
                     console.log(err);
@@ -79,7 +79,20 @@ app.post("/register",function(req,res){
     });
  
  });
+// login route
+app.post("/login",passport.authenticate("local",{
+    successRedirect:"/profile",
+    failureRedirect:"/login"
+}),function(req,res){
 
+
+});
+
+// logout route
+app.get("/logout",function(req,res){
+    req.logout();
+    res.redirect("/");
+});
 
 
 
@@ -88,8 +101,7 @@ app.post("/register",function(req,res){
 
 app.get("/getstockname",function(req,res){
     var data = stockname.stock();
-    console.log(data);
-    console.log("data got");
+  
     res.send(data);
 });
 

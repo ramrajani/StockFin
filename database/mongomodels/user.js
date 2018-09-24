@@ -10,7 +10,7 @@ var UserSchema = new mongoose.Schema({
     state:String,
     occupation:String,
     organization:String,
-    emailid:String,
+    username:String,
     portfolio:[{
         bsecode:String,
         stockname:String,
