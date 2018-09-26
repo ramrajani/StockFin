@@ -2,21 +2,32 @@
 <% include partials/middle.ejs %>
 
 <div class="container">
-  <div class="row">
+    
+  <div class="row " style="padding-top:5%">
 
-        <div class="col-sm">
-                <div class="square">
-                     SENSEX: <h1>This is a Square</h1>
-                    </div>
+        <div class="col-md-5 square" style="border: 2px solid #4e7e80;border-radius: 15%;">
+                    <div style="padding-top:3%">                
+                     <b>SENSEX:</b> <span><h1 id="marketcap"></h1></span>
+                   </div>
               </div>
-       
-              <div class="col-sm">
-                    <div class="square">
-                      </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5 square" style="border: 2px solid #4e7e80;border-radius: 15%;   width: 100%;overflow: hidden;">
+                  <div style="padding-top:3%; width: 100%;height: 100%;overflow-y: scroll; padding-right: 17px;box-sizing: content-box;" id="scrnews" >
+                   <table  border="0" id="newsTable" style="text-color:white">
+                <thead>
+                <tr><th>Breaking News</th></tr>
+                </thead>
+              
+            </table>
+                   </div>
                   </div>
+                  <div class="col-md-1"></div>
 
 </div>
 </div>
+
+
+<
 
 
 
@@ -32,7 +43,7 @@
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-09-10";
+                          var str1 = "2018-09-26";
                           for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
@@ -40,7 +51,7 @@
                                    var str2="close";
                                    for(key in val){
                                          if(key.includes("4")){
-                                               $('h1').html(val[key]);
+                                               $('#marketcap').html(val[key]);
                                                console.log(val[key]);
                                          }
                                    }
@@ -55,8 +66,35 @@
                                                      });
 
    }
-
+sensexvalue();
 setInterval(sensexvalue,100000);
+
+
+$.ajax({
+            url:"https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9233d93e3f414c119fbfaf44b8dc414b" ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                var array=data.articles;
+                   for( var i=0; i<array.length;++i){
+                   console.log(array[i].title);
+
+                      var table = document.getElementById("newsTable");
+                         var row = table.insertRow(1);
+                     var cell = row.insertCell(0);
+
+                     var link = document.createElement("a");
+                         link.setAttribute("href",array[i].url);
+                         var newContent = document.createTextNode(array[i].title);
+                         link.appendChild(newContent);
+                        cell.appendChild(link);
+                   }
+            }
+            });
+
+
+
 </script>
 
 <% include partials/footer.ejs %>

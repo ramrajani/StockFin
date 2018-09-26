@@ -1,14 +1,16 @@
 <% include partials/header.ejs %>
+<% include partials/middle.ejs %>
 
 <div class="container">
-
+<div style="padding-top:3%">
         <div class="card">
-                <h5 class="card-header" id="stocknameshow"></h5>
+                <h2 class="card-header" id="stocknameshow"></h2>
                 <div class="card-body">
-                  <h5 class="card-title" id="stockpriceshow"></h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <h3 class="card-title" id="stockpriceshow"></h3>
+                  <p class="card-text" id="extradetails"></p>
                   <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
+              </div>
               </div>
 
 </div>
@@ -21,7 +23,7 @@
   // getting stockname
 
 $.ajax({
-url:"http://localhost:3000/getstockname",
+url:location.origin+"/getstockname",
 type:"GET",
 dataType: 'json',
 data:{},
@@ -52,10 +54,12 @@ $.ajax({
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-09-12";
+                          var str1 = "2018-09-26";
                           for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
+                                   var extra =JSON.stringify(val);
+                                   $('#extradetails').text(extra);
                                    console.log(data[key][datee]);
                                    var str2="close";
                                    for(key in val){
