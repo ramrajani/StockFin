@@ -21,7 +21,7 @@
 <script>
      var a = <%=bse%> ;
   // getting stockname
-
+      var valstock= "";
 $.ajax({
 url:location.origin+"/getstockname",
 type:"GET",
@@ -34,6 +34,16 @@ success:function(data) {
 for(var i=0;i<data.companyarray.length;i++){
     if(data.companyarray[i].bse==a){
      var sharename = data.companyarray[i].sharename;
+      b = data.companyarray[i].nse;
+      if(b){
+            var temp ="NSE:"+b;
+            valstock =temp;
+            priceupdate(valstock);       
+      }else{
+            var temp ="BSE:"+a;
+            valstock =temp;
+            priceupdate(valstock);
+      }
        $('#stocknameshow').html(sharename);
        console.log("name set "+ sharename);
     
@@ -44,8 +54,10 @@ for(var i=0;i<data.companyarray.length;i++){
 });
 //getting stock price
 
+function priceupdate(valto){
+  console.log(valto);
 $.ajax({
-            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=BSE:"+a+"&apikey=FSOT7PX5KBS58O79" ,
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+valto+"&apikey=FSOT7PX5KBS58O79" ,
             type:"GET",
             dataType: 'json',
             data:{},
@@ -78,6 +90,11 @@ $.ajax({
                             }
                                                      });
 
+
+}
+
+
+setInterval(priceupdate(valstock),5000);
 
 
 

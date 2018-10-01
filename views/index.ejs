@@ -43,7 +43,7 @@
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-09-26";
+                          var str1 = gettoday();
                           for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
@@ -67,8 +67,28 @@
 
    }
 sensexvalue();
-setInterval(sensexvalue,100000);
 
+setInterval(sensexvalue,100000);
+function gettoday(){
+    var today = new Date();
+    var dd = today.getDate()-1;
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+    
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+    var compdate = yyyy+"-"+mm+"-"+dd;
+    return(compdate);
+    
+
+
+
+}
 
 $.ajax({
             url:"https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9233d93e3f414c119fbfaf44b8dc414b" ,
@@ -77,20 +97,17 @@ $.ajax({
             data:{},
             success:function(data) {
                 var array=data.articles;
+                var newsdata="";
                    for( var i=0; i<array.length;++i){
                    console.log(array[i].title);
+                     newsdata+='<li><a href="'+array[i].url+'">'+array[i].title+'</a></li>';
 
-                      var table = document.getElementById("newsTable");
-                         var row = table.insertRow(1);
-                     var cell = row.insertCell(0);
+                  
 
-                     var link = document.createElement("a");
-                         link.setAttribute("href",array[i].url);
-                         var newContent = document.createTextNode(array[i].title);
-                         link.appendChild(newContent);
-                        cell.appendChild(link);
-                   }
+                  }
+                  $('#newsTable').append(newsdata);
             }
+
             });
 
 

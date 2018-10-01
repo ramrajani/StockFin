@@ -18,6 +18,8 @@
   "homepage": "https://github.com/ramrajani/StockFin#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "cheerio-eq": "^1.0.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
@@ -26,6 +28,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
-    "pg": "^7.4.3"
+    "pg": "^7.4.3",
+    "request": "^2.88.0"
   }
 }
