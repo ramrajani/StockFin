@@ -6,7 +6,8 @@ const stockname = require("./api/stockname"),
         LocalStrategy =require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
         bodyParser  = require('body-parser'),
-        stockdetails = require('./api/myapi/stockdetails.js');
+        stockdetails = require('./api/myapi/stockdetails.js'),
+        pgconect  = require("./database/postgresconnection/connect");
 
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -104,8 +105,8 @@ app.get("/getstockname",function(req,res){
   
     res.send(data);
 });
-// get stock price from bse
-app.get("/bsestockprice",stockdetails.bsesite);
+// get stock report card
+app.get("/api/reportcard",pgconect.reportcard);
 
 
 

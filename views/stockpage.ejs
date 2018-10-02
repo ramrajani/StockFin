@@ -1,17 +1,41 @@
 <% include partials/header.ejs %>
 <% include partials/middle.ejs %>
-
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	
 <div class="container">
 <div style="padding-top:3%">
         <div class="card">
                 <h2 class="card-header" id="stocknameshow"></h2>
                 <div class="card-body">
                   <h3 class="card-title" id="stockpriceshow"></h3>
-                  <p class="card-text" id="extradetails"></p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                  <div class="row">
+                        <div class="col-md-6">
+                  <p class="card-text" id="extradetails">
+                      <div><strong>Open : </strong> <span id="openprice"></span></div>
+                        <div><strong>High : </strong><span id="highprice"></span></div>
+                        <div><strong>Low : </strong><span id="lowprice"></span></div>
+                        <div><strong>Volume :</strong><span id="volume"></span></div>
+                  </p>
+            </div>
+            <div class="col-md-4">
+                   <div class="card">
+                         <h3>Report Card</h3>
+                         <div><strong>Eps(Rs):</strong> <span id="eps" class="tp"></span></div>
+                         <div><strong>Sales :</strong> <span id="sales" class="tp"></span></div>
+                         <div><strong>Face-Value :</strong> <span id="facevalue" class="tp"></span></div>
+                         <div><strong>Net Profit(cr) :</strong> <span id="netprofit" class="tp"></span></div>
+                         
+                   </div>
+
+            </div>
+
+            </div>
+                 
                 </div>
               </div>
               </div>
+              <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
 </div>
 
@@ -20,6 +44,7 @@
 
 <script>
      var a = <%=bse%> ;
+     var tempurl="";
   // getting stockname
       var valstock= "";
 $.ajax({
@@ -44,20 +69,47 @@ for(var i=0;i<data.companyarray.length;i++){
             valstock =temp;
             priceupdate(valstock);
       }
+      tempurl =
        $('#stocknameshow').html(sharename);
        console.log("name set "+ sharename);
+       
     
     }
 }
 
 }
 });
+
+// getting stock report card
+
+$.ajax({
+url:location.origin+"/api/reportcard?bsecode="+a,
+type:"GET",
+dataType: 'json',
+data:{},
+headers: {
+'Content-Type':'application/json' 
+},
+success:function(data) {
+    
+    data = data[0];
+    $('#eps').append(data.eps);
+    $('#sales').append(data.salea);
+    $('#facevalue').append(data.facevalue);
+    $('#netprofit').append(data.netprofit);
+console.log(data);
+
+}
+});
+
+
+
 //getting stock price
 
 function priceupdate(valto){
   console.log(valto);
 $.ajax({
-            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+valto+"&apikey=FSOT7PX5KBS58O79" ,
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+valto+"&apikey=1G55BZ2V9RC0578S" ,
             type:"GET",
             dataType: 'json',
             data:{},
@@ -66,18 +118,30 @@ $.ajax({
               for(key in data){
                     if(key.includes(str)){
                           console.log(data[key]);
-                          var str1 = "2018-09-26";
+                          var str1 = gettoday();
                           for(datee in data[key]){    
                              if(datee.includes(str1)){
                                    var val = data[key][datee];
                                    var extra =JSON.stringify(val);
-                                   $('#extradetails').text(extra);
+                                  
                                    console.log(data[key][datee]);
                                    var str2="close";
                                    for(key in val){
                                          if(key.includes("4")){
                                                $('#stockpriceshow').html(val[key]);
                                                console.log(val[key]);
+                                         }
+                                         if(key.includes("1")){
+                                               $('#openprice').append(val[key]);
+                                         }
+                                         if(key.includes("2")){
+                                               $('#highprice').append(val[key]);
+                                         }
+                                         if(key.includes("3")){
+                                               $('#lowprice').append(val[key]);
+                                         }
+                                         if(key.includes("6")){
+                                               $('#volume').append(val[key]);
                                          }
                                    }
                              }
@@ -92,25 +156,76 @@ $.ajax({
 
 
 }
+//  news api 95a287139a984969841b41dab6b249d7
 
 
 setInterval(priceupdate(valstock),5000);
 
+function gettoday(){
+    var today = new Date();
+    var dd = today.getDate()-2;
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+    
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+    var compdate = yyyy+"-"+mm+"-"+dd;
+    return(compdate);
+    
 
 
-      
 
+}
 
-
-
-  
-
-
+        var dps = []; // dataPoints
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title :{
+                text: "Dynamic Data"
+            },
+            axisY: {
+                includeZero: false
+            },      
+            data: [{
+                type: "line",
+                dataPoints: dps
+            }]
+        });
+        
+        var xVal = 0;
+        var yVal = 100; 
+        var updateInterval = 1000;
+        var dataLength = 20; // number of dataPoints visible at any point
+        
+       function updateChart(count) {
+        
+            count = count || 1;
+        
+            for (var j = 0; j < count; j++) {
+                yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
+                dps.push({
+                    x: xVal,
+                    y: yVal
+                });
+                xVal++;
+            }
+        
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+        
+            chart.render();
+        };
+        
+        updateChart(dataLength);
+        setInterval(function(){updateChart()}, updateInterval);
+        
 
 </script>
-
-
-
 
 
 

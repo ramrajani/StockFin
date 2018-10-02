@@ -30,3 +30,8 @@ table a{
     color:#c34100;
 }
 
+
+#chartdiv {
+  width: 50%;
+  height: 500px;
+}
