@@ -55,6 +55,22 @@ app.get("/stocks",function(req,res){
     res.render("stockpage",{bse:bse,CurrentUser:req.user});
     
 });
+// analysis page
+app.get("/analysis",function(req,res){
+    res.render("analysis",{CurrentUser:req.user});
+})
+
+
+
+
+
+app.get("/tp",function(req,res){
+    res.render("tp");
+})
+
+
+
+
 
 app.get("/login",function(req,res){
     res.render("login",{CurrentUser:req.user});
@@ -140,6 +156,6 @@ app.get("/api/reportcard",pgconect.reportcard);
 
 
 
-app.listen(3000,function(req,res){
+app.listen(process.env.PORT,process.env.IP,function(req,res){
     console.log("server has started");
 })

@@ -1,0 +1,102 @@
+<% include partials/header.ejs %>
+<% include partials/middle.ejs %>
+
+
+
+<div class="container">
+    
+        <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="addfilter" class="positive ui button" style:"position: absolute;">ADD Filter</button></div>
+   <div class-"filterpouch">     
+    
+         
+    </div>
+    
+     <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="submitfilter" class="positive ui button" style="position: absolute;">Submit</button></div>
+    <hr>
+    
+    <div class="row">
+     <div class="card border-success mb-3" style="max-width: 18rem;">
+  <div class="card-header bg-transparent border-success">Header</div>
+  <div class="card-body text-success">
+    <h5 class="card-title">Success card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <div class="card-footer bg-transparent border-success">Footer</div>
+</div>
+        
+        
+    </div>
+    
+    
+</div>
+
+<script>
+    var count=0;
+    
+    
+    $('#addfilter').on('click',function(){
+         count++;
+          $('.row').append('
+          <div class="row" id="row'+count+'value">
+        
+        <div class="col-md-5 filteroption" >
+        
+        <select class="ui fluid  dropdown" id="filters'+count+'row"><option>Price Range</option><option>EPS</option><option>Sales</option><option>Face-Value</option><option>Equity</option><option>Net-Profit</option></select>
+            </div>
+      <div class="col-md-1"></div>
+          <div class="col-md-5" id="slideradded">
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p><span id="slider-range'+count+'"></span>
+            </div>
+      </div>
+    
+          
+          
+          
+          
+          ')    
+        $('#filters').append('');
+        $('#slideradded').append('');
+        
+         $( function() {
+		$( "#slider-range" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+			" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	} );
+         
+    
+    
+    
+    })
+    
+    
+    	
+
+	    
+	  
+        
+
+	</script>
+   
+    
+    
+    
+    
+    
+    
+</script>
+
+
+
+
+
+
+
+<% include partials/footer.ejs %>
