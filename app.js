@@ -124,6 +124,7 @@ app.get("/getstockname",function(req,res){
 // get stock report card
 app.get("/api/reportcard",pgconect.reportcard);
 
+app.get("/api/filter",pgconect.analyze);
 
 
 

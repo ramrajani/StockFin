@@ -30,6 +30,35 @@ module.exports={
 
 
 
+   },
+   analyze:function(req,res){
+     var query="WHERE";
+       var pricerangestart =req.query.pricerangestart;
+       var pricerangeend =req.query.pricerangeend;
+       
+       var epsstart =req.query.epsstart;
+       var epsend =req.query.epsend;
+          
+       var salesstart =req.query.salesstart;
+       var salesend =req.query.salesend;
+       
+       var facevaluestart =req.query.facevaluestart;
+       var facevalueend =req.query.facevalueend;
+       
+       
+       var equitystart =req.query.equitystart;
+       var equityend =req.query.equityend;
+       
+       
+       if(pricerangestart && pricerangeend){
+           query=""
+       }else if(epsstart && epsend){
+           query=""
+       }
+       
+       
+       
+       
    }
 
 
