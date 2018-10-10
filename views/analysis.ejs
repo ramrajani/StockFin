@@ -53,6 +53,7 @@
     
     $('#submitfilter').on("click",function(){
         
+         $('#filtereddata').children().remove();
         var linkadded="";
         for(var i=1;i<=count;i++){
            
@@ -97,10 +98,41 @@
             success:function(data) {
                   
                   console.log(data);
+                  var bsecodes = data;
                   
-                  data.forEach(function(bsecodedata){
+                  
+                  
+                        
+                  bsecodes.forEach(function(bsecodedata){
                       
-                        $('#filtereddata').append(' <div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success">'+bsecodedata.bsecode+'</div><div class="card-body text-success"><h5 class="card-title">Success card title</h5><p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p></div><div class="card-footer bg-transparent border-success">Footer</div></div>');
+                      
+                      $.ajax({
+                        url:location.origin+"/api/reportcard?bsecode="+a,
+                        type:"GET",
+                        dataType: 'json',
+                        data:{},
+                        headers: {
+                        'Content-Type':'application/json' 
+                        },
+                        success:function(data) {
+                            
+                            data = data[0];
+                            $('#eps').append(data.eps);
+                            $('#sales').append(data.salea);
+                            $('#facevalue').append(data.facevalue);
+                            $('#netprofit').append(data.netprofit);
+                        console.log(data);
+                        
+                        }
+                        });
+
+                      
+                      
+                      
+                        $('#filtereddata').append(' <div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success">'+bsecodes.bse+'</div><div class="card-body text-success"><h5 class="card-title">Report card</h5><div><strong>Eps(Rs):</strong> <span id="eps" class="tp"></span></div>
+                         <div><strong>Sales :</strong> <span id="sales" class="tp"></span></div>
+                         <div><strong>Face-Value :</strong> <span id="facevalue" class="tp"></span></div>
+                         <div><strong>Net Profit(cr) :</strong> <span id="netprofit" class="tp"></span></div></div><div class="card-footer bg-transparent border-success">Footer</div></div>');
                       
                   })
                   
@@ -114,7 +146,7 @@
        
             
              }
-                                                     });
+                                                    
         
     })	
 

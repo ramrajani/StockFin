@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg');
-const connectionString = 'postgres://postgres:ram@localhost/stockfindb';
+const connectionString = 'postgres://postgres:tushar@localhost/stockfin';
 
 
 const client = new Client({
@@ -18,7 +18,7 @@ module.exports={
     var ypm1 = today.getFullYear()-1;
     console.log(yyyy);
     var query = {
-      text: 'SELECT p.eps,p.salea,p.netprofit,b.facevalue FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse WHERE p.bse= $1 ',
+      text: 'SELECT p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse WHERE p.bse= $1 ',
       values: [bsecode]
     }
 
