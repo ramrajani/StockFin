@@ -41,15 +41,15 @@
          $( function() {
 		$( "#slider-range"+count).slider({
 			range: true,
-			min: 0,
-			max: 500,
+			min: -4000,
+			max: 5000,
 			values: [ 75, 300 ],
 			slide: function( event, ui ) {
 				$( "#amount"+count ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
 			}
 		});
-		$( "#amount"+count ).val( "$" + $( "#slider-range"+count ).slider( "values", 0 ) +
-			" - $" + $( "#slider-range"+count ).slider( "values", 1 ) );
+		$( "#amount"+count ).val( "₹" + $( "#slider-range"+count ).slider( "values", 0 ) +
+			" - ₹" + $( "#slider-range"+count ).slider( "values", 1 ) );
 	} );
          
     
@@ -83,6 +83,7 @@
            }
             
             linkadded+="&"
+            console.log(linkadded);
             
         }
         
@@ -101,13 +102,18 @@
             dataType: 'json',
             data:{},
             success:function(data) {
+                  
                   console.log(data);
+                  
+
+                  
+                  
                   
                   
        
        
             
-                            }
+             }
                                                      });
         
     })	
