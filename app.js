@@ -108,6 +108,11 @@ app.get("/getstockname",function(req,res){
 // get stock report card
 app.get("/api/reportcard",pgconect.reportcard);
 
+//tp ocrd
+app.get("/ocrd",function(req,res){
+    res.render('ocrd');
+})
+
 
 
 
