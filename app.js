@@ -55,6 +55,22 @@ app.get("/stocks",function(req,res){
     res.render("stockpage",{bse:bse,CurrentUser:req.user});
     
 });
+// analysis page
+app.get("/analysis",function(req,res){
+    res.render("analysis",{CurrentUser:req.user});
+})
+
+
+
+
+
+app.get("/tp",function(req,res){
+    res.render("tp");
+})
+
+
+
+
 
 app.get("/login",function(req,res){
     res.render("login",{CurrentUser:req.user});
@@ -108,11 +124,15 @@ app.get("/getstockname",function(req,res){
 // get stock report card
 app.get("/api/reportcard",pgconect.reportcard);
 
+<<<<<<< HEAD
 //tp ocrd
 app.get("/ocrd",function(req,res){
     res.render('ocrd');
 })
 
+=======
+app.get("/api/filter",pgconect.analyze);
+>>>>>>> beca17476f3864f0104664061e5c1cec51a47913
 
 
 
@@ -145,6 +165,6 @@ app.get("/ocrd",function(req,res){
 
 
 
-app.listen(3000,function(req,res){
+app.listen(process.env.PORT,process.env.IP,function(req,res){
     console.log("server has started");
 })

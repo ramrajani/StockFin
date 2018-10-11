@@ -1,0 +1,173 @@
+<% include partials/header.ejs %>
+<% include partials/middle.ejs %>
+
+
+
+<div class="container">
+    
+        <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="addfilter" class="positive ui button" style:"position: absolute;">ADD Filter</button></div>
+   <div class="filterpouch">     
+    
+         
+    </div>
+    
+     <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="submitfilter" class="positive ui button">Submit</button></div>
+    <hr>
+    
+    <div class="row" id="filteredddata">
+    
+        
+        
+    </div>
+    
+    
+</div>
+
+<script>
+    var count=0;
+    
+    
+    $('#addfilter').on('click',function(){
+         count++;
+          $('.filterpouch').append('<div class="row" id="row'+count+'value"><div class="col-md-5 filteroption" ><select class="ui fluid  dropdown" id="filters'+count+'row"><option>Price Range</option><option>EPS</option><option>Sales</option><option>Face-Value</option><option>Equity</option><option>Net-Profit</option></select></div><div class="col-md-1"></div><div class="col-md-2"><input type="text" id="amount'+count+'" readonly style="border:0; color:#1f69f6; font-weight:bold;"></div><div id="slider-range'+count+'" class="col-md-4"></div></div>');    
+        
+         $( function() {
+		$( "#slider-range"+count).slider({
+			range: true,
+			min: -4000,
+			max: 5000,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#amount"+count ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+		$( "#amount"+count ).val( "₹" + $( "#slider-range"+count ).slider( "values", 0 ) +
+			" - ₹" + $( "#slider-range"+count ).slider( "values", 1 ) );
+	} );
+         
+    
+    
+    
+    })
+    
+    
+    $('#submitfilter').on("click",function(){
+        
+         $('#filtereddata').children().remove();
+        var linkadded="";
+        for(var i=1;i<=count;i++){
+           
+           if($('#filters'+count+'row').val()=='Price Range'){
+               
+               linkadded+="pricerangestart="+$('#slider-range'+count).slider("values",0)+"&pricerangeend="+$('#slider-range'+count).slider("values",1);
+               console.log(linkadded);
+           }
+           else if($('#filters'+count+'row').val()=='EPS'){
+               linkadded+="epsstart="+$('#slider-range'+count).slider("values",0)+"&epsend="+$('#slider-range'+count).slider("values",1);
+               
+           }
+           else if($('#filters'+count+'row').val()=='Sales'){
+               linkadded+="salesstart="+$('#slider-range'+count).slider("values",0)+"&salesend="+$('#slider-range'+count).slider("values",1);
+           }
+           else if($('#filters'+count+'row').val()=='Face-Value'){
+               linkadded+="facevaluestart="+$('#slider-range'+count).slider("values",0)+"&facevalueend="+$('#slider-range'+count).slider("values",1);
+           }
+           else if($('#filters'+count+'row').val()=='Equity'){
+               linkadded+="equitystart="+$('#slider-range'+count).slider("values",0)+"&equityend="+$('#slider-range'+count).slider("values",1);
+           }
+            
+            linkadded+="&"
+            console.log(linkadded);
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+           $.ajax({
+            url:location.origin+"/api/filter?"+linkadded ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                  
+                  console.log(data);
+                  var bsecodes = data;
+                  
+                  
+                  
+                        
+                  bsecodes.forEach(function(bsecodedata){
+                      
+                      
+                      $.ajax({
+                        url:location.origin+"/api/reportcard?bsecode="+a,
+                        type:"GET",
+                        dataType: 'json',
+                        data:{},
+                        headers: {
+                        'Content-Type':'application/json' 
+                        },
+                        success:function(data) {
+                            
+                            data = data[0];
+                            $('#eps').append(data.eps);
+                            $('#sales').append(data.salea);
+                            $('#facevalue').append(data.facevalue);
+                            $('#netprofit').append(data.netprofit);
+                        console.log(data);
+                        
+                        }
+                        });
+
+                      
+                      
+                      
+                        $('#filtereddata').append(' <div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success">'+bsecodes.bse+'</div><div class="card-body text-success"><h5 class="card-title">Report card</h5><div><strong>Eps(Rs):</strong> <span id="eps" class="tp"></span></div>
+                         <div><strong>Sales :</strong> <span id="sales" class="tp"></span></div>
+                         <div><strong>Face-Value :</strong> <span id="facevalue" class="tp"></span></div>
+                         <div><strong>Net Profit(cr) :</strong> <span id="netprofit" class="tp"></span></div></div><div class="card-footer bg-transparent border-success">Footer</div></div>');
+                      
+                  })
+                  
+               
+
+                  
+                  
+                  
+                  
+       
+       
+            
+             }
+                                                    
+        
+    })	
+
+	    
+	  
+        
+
+	</script>
+   
+    
+    
+    
+    
+    
+    
+</script>
+
+
+
+
+
+
+
+<% include partials/footer.ejs %>
