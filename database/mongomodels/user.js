@@ -2,23 +2,18 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/stockfindb');
 var passportLocalMongoose = require('passport-local-mongoose');
 var UserSchema = new mongoose.Schema({
-    image:String,
+    email:String,
     password:String,
     fullname:String,
-    country :String,
-    city:String,
-    state:String,
-    occupation:String,
-    organization:String,
     username:String,
     portfolio:[{
-        bsecode:String,
+        bsecode:Number,
         stockname:String,
-        numberofstocks:String,
-        boughtat:String
+        numberofstocks:Number,
+        boughtat:Number
         
     }],
-    stocksvisited:[String],    
+    watchlist:[Number],    
 });
 
 UserSchema.plugin(passportLocalMongoose);

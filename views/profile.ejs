@@ -1,28 +1,19 @@
 <% include partials/header.ejs %>
 <% include partials/middle.ejs %>
 
-<div class="container-fluid emp-profile">
-
+<div class="container">
+   <div class="row" style="padding-top:2%"></div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="profile-img">
-                <img id="profileimage"src="https://www.famousbirthdays.com/faces/cerny-amanda-image.jpg" alt="">
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="profile-head">
-                        <h5>
-                            <span id="name"></span>
-                        </h5>
-                        <h6>
-                            <span id="occupation1"></span>
-                        </h6>
+                       
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <button class="nav-link" id="hometab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">About</button>
+                            <button class="nav-link" id="portfoliotab" data-toggle="tab"  role="tab" aria-controls="portfolio" aria-selected="true">Portfolio</button>
+                        
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" id="portfoliotab" data-toggle="tab"  role="tab" aria-controls="messages" aria-selected="false">Portfolio</button>
+                            <button class="nav-link" id="watchlisttab" data-toggle="tab" role="tab" aria-controls="Watchlist" aria-selected="false">Watchlist</button>
                     </li>
                 </ul>
             </div>
@@ -32,32 +23,14 @@
         </div>
     </div>
        
-
     <div class="row">
-        <div class="col-md-4">
-            <div class="profile-work">
-                <p>Profiles</p>
-
-                <a href="codechef">LinkedIn Link</a><br/>
-                
-                <p>Personal Details</p>
-                <ul style="list-style-type:none; text-align: left; padding: 0px">
-                    <li ><strong>City:</strong> <span id="city"></span></li>
-                    <li><strong>State:</strong> <span id="state"></span></li>
-                    <li><strong>Country:</strong> <span id="country"></span></li>
-                    <li><strong>Occupation:</strong> <span id="occupation"></span></li>
-                    <li><strong>Organization:</strong> <span id="organization"></span></li>
-                </ul>
-            </div>
-        </div>
-                 
-        <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">  
+    
+            <div class="tab-content profile-tab col-md-9" id="myTabContent">
              </div> 
-            
+            <div class="tab-content profile-tab col-md-12 row" id="filteredddata"></div>
         </div>
 
-       </div> 
+        
 </div>
 
 
@@ -65,67 +38,176 @@
 
      var user = <%- JSON.stringify(CurrentUser) %>;
     console.log(user);
-    if(user.image){
-    $("#profileimage").attr('src',user.image);
-}
-if(user.fullname){
-    $('#name').text(user.fullname);
-    $('#fullname').text(user.username);
-}
-if(user.city){
-    $('#city').text(user.city);
-
-}
-if(user.state){
-    $('#state').text(user.state);
-}
-if(user.country){
-    $('#country').text(user.country);
-}
-if(user.occupation){
-    $('#occupation').text(user.occupation);
-    $('#occupation1').text(user.occupation);
     
-}
-if(user.organization){
-    $('#organization').text(user.organization);
-}
+
 
 function  cont(){
-    
-    $('#myTabContent').children().remove();
-    var  userdetails='';
-    userdetails+='<div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="home-tab"><div class="row"><div class="col-md-6" ><label>User Id </></div><div class="col-md-6"><p>'+user.username+'</p></div></div><div class="row"><div class="col-md-6"><label>Name</label></div><div class="col-md-6"><p>'+user.fullname+'</p></div></div><div class="row"><div class="col-md-6"><label>Email</label></div><div class="col-md-6"><p>'+user.emailid+'</p></div></div><div class="row"><div class="col-md-6"><label>Profession</label></div><div class="col-md-6"><p>'+user.occupation+'</p></div></div></div>' ;
+
+    $('#filteredddata').children().remove();
+    $('#myTabContent').append('<table  id="sharetable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">BSE-CODE</th><th scope="col">NAME</th><th scope="col">Current Price</th><th scope="col">Quantity</th><th scope="col">Bought at</th><th scope="col">Net</th></tr></table>');
+         
   
-     console.log(user);
-    $('#myTabContent').append(userdetails);
+     user.portfolio.forEach(function(portfolio){
+             
+        $.ajax({
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=BSE:"+portfolio.bsecode+"&apikey=1G55BZ2V9RC0578S" ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                  var str ="Series"
+              for(key in data){
+                    if(key.includes(str)){
+                          console.log(data[key]);
+                          var str1 = gettoday();
+                          for(datee in data[key]){    
+                             if(datee.includes(str1)){
+                                   var val = data[key][datee];
+                                   var extra =JSON.stringify(val);
+                                  
+                                   console.log(data[key][datee]);
+                                   var str2="close";
+                                   for(key in val){
+                                         if(key.includes("4")){
+                                               $('#stockpriceshow').html(val[key]);
+                                               console.log(val[key]);
+       $('#sharetable').append('<tr><th scope="col">'+portfolio.bsecode+'</th><th scope="col">'+portfolio.stockname+'</th><th scope="col">'+val[key]+'</th><th scope="col">'+portfolio.numberofstocks+'</th><th scope="col">'+portfolio.boughtat+'</th><th scope="col">net</th></tr>')
+
+                                       
+                                         }
+                                       
+                                   }
+                             }
+                          }
+                    }
 
 
+              }
+            
+                            }
+                                                     });
+
+           
+         
+
+
+    }) ;
+
+     
   }
+
+function gettoday(){
+    var today = new Date();
+    var dd = today.getDate()-1;
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+    
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+    var compdate = yyyy+"-"+mm+"-"+dd;
+    return(compdate);
+    
+
+
+
+}
+
+function priceupdate(valto){
+  console.log(valto);
+$.ajax({
+            url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+valto+"&apikey=1G55BZ2V9RC0578S" ,
+            type:"GET",
+            dataType: 'json',
+            data:{},
+            success:function(data) {
+                  var str ="Series"
+              for(key in data){
+                    if(key.includes(str)){
+                          console.log(data[key]);
+                          var str1 = gettoday();
+                          for(datee in data[key]){    
+                             if(datee.includes(str1)){
+                                   var val = data[key][datee];
+                                   var extra =JSON.stringify(val);
+                                  
+                                   console.log(data[key][datee]);
+                                   var str2="close";
+                                   for(key in val){
+                                         if(key.includes("4")){
+                                               $('#stockpriceshow').html(val[key]);
+                                               console.log(val[key]);
+                                         }
+                                       
+                                   }
+                             }
+                          }
+                    }
+
+
+              }
+            
+                            }
+                                                     });
+
+
+}
 
 
 cont();
-$('#hometab').on("click",cont);
 
 
-  $("#porofoliotab").on("click",function(){
+
+$('#portfoliotab').on("click",function(){
+
+    cont();
+
+});
+$('#watchlisttab').on("click",function(){
     $('#myTabContent').children().remove();
-    var portfoliosection = '<section class="card card-inverse bg-light"><div class="card-body"><h5>Problems solved:</h5>';
+
+user.watchlist.forEach(function(watch){
    
-   var stocksdisplay ='';
-user.portfolio.forEach(function(problem){
-  
-  
-  
-    stocksdisplay+='<section class="card card-inverse bg-light"><div class="card-body"><div class="row"><div class="col-md-9"><p>Stock name: '+problem.stockname+'</p></div>< div class="col-md-3">Current price:</div></div><div class="row"><div class="col-md-4">Bought at:'+problem.boughtat+'</div><div class="col-md-4">code:'+  problem.bsecode+'</div><div class="col-md-4">Number of stocks:'+problem.numberofstocks+'</div></div> </div></div></section> </section> ';
+    $.ajax({
+        url:location.origin+"/api/stockbybse?bsecode="+watch,
+        type:"GET",
+        dataType: 'json',
+        data:{},
+        headers: {
+        'Content-Type':'application/json' 
+        },
+        success:function(data) {
+         var stockname =data[0].name;
+                $.ajax({
+                url:location.origin+"/api/reportcard?bsecode="+watch,
+                type:"GET",
+                dataType: 'json',
+                data:{},
+                headers: {
+                'Content-Type':'application/json' 
+                },
+                success:function(data) {
+                    
+                    data = data[0];
+                   $('#filteredddata').append('<div class="card border-success col-md-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success"><strong>'+stockname+'</strong><span style="float:right">'+watch+'</span></div><div class="card-body text-success"><h5 class="card-title">Report card</h5><div><strong>Eps(Rs):</strong>'+data.eps+'</div><div><strong>Sales :</strong>'+data.salea+'</div><div><strong>Face-Value :</strong>'+data.facevalue+'</div><div><strong>Net Profit(cr) :</strong>'+data.netprofit+'</div><a href="/stocks?bse='+watch+'">View more</a></div><div class="card-footer bg-transparent border-success"></div></div>');
+                     
+
+                console.log(data);
+
+                }
+                });
+
+       }});
+
+
+
 });
 
-    $('#myTabContent').append('<div class="row"><button id="sent" class="nav-link">Sent Messages</button><button id="received" class="nav-link">received Messages</button><button id="send" class="nav-link">Send a Message</button></div> <div class="tab-content profile-tab messagecontent"></div>');
-
-
-
-  });
-
+})
 
 
 

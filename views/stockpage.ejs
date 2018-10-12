@@ -1,11 +1,13 @@
 <% include partials/header.ejs %>
 <% include partials/middle.ejs %>
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	
 <div class="container">
 <div style="padding-top:3%">
         <div class="card">
-                <h2 class="card-header" id="stocknameshow"></h2>
+               <div> <h2 class="card-header" id="stocknameshow"></h2><div id="buttontoadd" style="float:right"></div></div>
+                
                 <div class="card-body">
                   <h3 class="card-title" id="stockpriceshow"></h3>
 
@@ -45,6 +47,18 @@
 <script>
      var a = <%=bse%> ;
      var tempurl="";
+
+
+
+
+
+
+
+
+
+
+
+     
   // getting stockname
       var valstock= "";
 $.ajax({
@@ -225,6 +239,83 @@ function gettoday(){
         setInterval(function(){updateChart()}, updateInterval);
         
 
+
+
+
+ var user = <%- JSON.stringify(CurrentUser) %>+"";
+        console.log(user);
+        if(user){
+              $('#buttontoadd').append('<button class="btn btn-primary btn-sm" id="addtowatch">Add to Watchlist</button>&nbsp;<button class="btn btn-primary btn-sm" id="addtoportfolio">Add to Portfolio</button>');
+        }
+
+    $('#addtowatch').on("click",function(){
+                
+      var urlParams = new URLSearchParams(location.search);
+      var a = urlParams.get('bse');
+                 $.ajax({
+                        url:location.origin+"/api/addtowatch?bsecode="+a,
+                        type:"GET",
+                        dataType: 'json',
+                        data:{},
+                        headers: {
+                        'Content-Type':'application/json' 
+                        },
+                        success:function(data) {
+                        console.log(data);
+                  
+            $('#addtowatch').attr('disabled', 'disabled'); 
+                        }
+                   });
+    })    
+
+
+
+
+    $('#addtoportfolio').on("click",function(){
+                
+                var urlParams = new URLSearchParams(location.search);
+                var a = urlParams.get('bse');
+                var b = parseInt(prompt("enter quantity"),10);
+                var c = parseInt(prompt("enter purchase price per share"),10);
+                console.log("a ="+a+" b=  "+b+"  c=  "+c);
+                $.ajax({
+                        url:location.origin+"/api/stockbybse?bsecode="+a,
+                        type:"GET",
+                        dataType: 'json',
+                        data:{},
+                        headers: {
+                        'Content-Type':'application/json' 
+                        },
+                        success:function(data) {
+                        console.log(data);
+                            var d= data[0].name;
+                       console.log("------------------------------------");
+                          console.log(a+"  "+b+"  "+c+"  "+d);
+                          console.log("----------------------------------");
+                            $.ajax({
+                                  url:location.origin+"/api/addtoportfolio?bsecode="+a+"&stockname="+d+"&numberofstocks="+b+"&boughtat="+c,
+                                  type:"GET",
+                                  dataType: 'json',
+                                  data:{},
+                                  headers: {
+                                  'Content-Type':'application/json' 
+                                  },
+                                  success:function(data) {
+                                  console.log(data);
+                            
+                      $('#addtoportfolio').attr('disabled', 'disabled'); 
+                                  }
+                             });
+
+
+
+
+                                  }
+                             });
+               
+
+                          
+              })    
 </script>
 
 

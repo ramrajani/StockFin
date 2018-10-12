@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg');
-const connectionString = 'postgres://postgres:tushar@localhost/stockfin';
+const connectionString = 'postgres://postgres:ram@localhost/stockfindb';
 
 
 const client = new Client({
@@ -24,7 +24,7 @@ module.exports={
 
     client.query(query, (err, resp) => {
       console.log(err, resp)
-      console.log(resp.rows);
+     
        res.send(resp.rows);
     })
 
@@ -68,20 +68,65 @@ module.exports={
     
     
     //query= 'SELECT p.eps,p.salea,p.netprofit,b.facevalue FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse WHERE p.bse= $1 '
+    console.log("--------------------------------------");   
+    console.log(epsstart,epsend);
+    console.log("--------------------");
        
+
+
+
         var query = {
-      text: 'SELECT p.bsecode  FROM profitloss'+ypm1+' p  WHERE p.eps BETWEEN   $1 and $2',
+      text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse WHERE p.bse IN (SELECT p.bse  FROM profitloss'+ypm1+' p  WHERE p.eps BETWEEN   $1 and $2) ',
       values:[epsstart,epsend]
      
     }
 
     client.query(query, (err, resp) => {
-      console.log(err, resp)
-      console.log(resp.rows);
-       res.send(resp.rows);
+      console.log(err,resp);
+      if(!err){
+          if(resp){
+            console.log(resp.rows);
+   
+            res.send(resp.rows);
+            
+
+          }
+          
+      }
     })
        
        
+   },
+
+   stockbybse:function(req,res){
+
+       
+    var query = {
+      text: 'SELECT name FROM stockname WHERE bse = $1',
+      values:[req.query.bsecode]
+     
+    }
+
+    client.query(query, (err, resp) => {
+      console.log("---------------query madharchod -    ----");
+      console.log(err,resp);
+      console.log("---------------query madharchod -    ----");
+      if(!err){
+
+      
+          if(resp){
+            console.log(resp.rows);
+            console.log(resp);
+   
+            res.send(resp.rows);
+            
+
+          }
+          
+      }
+    })
+
+
    }
 
 

@@ -25,6 +25,10 @@
 
 <script>
     var count=0;
+   
+        var user = <%- JSON.stringify(CurrentUser) %>+"";
+        console.log(user);
+
     
     
     $('#addfilter').on('click',function(){
@@ -101,40 +105,17 @@
                   var bsecodes = data;
                   
                   
-                  
+    
                         
-                  bsecodes.forEach(function(bsecodedata){
+         bsecodes.forEach(function(bsecodedata){
+                         console.log(bsecodedata);                 
+                         var fk="";
+                  if(user){
+                    fk = '<button class="btn btn-primary btn-sm btn-block">Add to Watchlist</button><button class="btn btn-primary btn-sm btn-block">Add to Portfolio</button>';
+                  }                
+                  $('#filteredddata').append('<div class="card border-success col-md-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success"><strong>'+bsecodedata.name+'</strong><span style="float:right">'+bsecodedata.bse+'</span></div><div class="card-body text-success"><h5 class="card-title">Report card</h5><div><strong>Eps(Rs):</strong>'+bsecodedata.eps+'</div><div><strong>Sales :</strong>'+bsecodedata.salea+'</div><div><strong>Face-Value :</strong>'+bsecodedata.facevalue+'</div><div><strong>Net Profit(cr) :</strong>'+bsecodedata.netprofit+'</div><a href="/stocks?bse='+bsecodedata.bse+'">View more</a></div><div class="card-footer bg-transparent border-success">'+fk+'</div></div>');
                       
-                      
-                      $.ajax({
-                        url:location.origin+"/api/reportcard?bsecode="+a,
-                        type:"GET",
-                        dataType: 'json',
-                        data:{},
-                        headers: {
-                        'Content-Type':'application/json' 
-                        },
-                        success:function(data) {
-                            
-                            data = data[0];
-                            $('#eps').append(data.eps);
-                            $('#sales').append(data.salea);
-                            $('#facevalue').append(data.facevalue);
-                            $('#netprofit').append(data.netprofit);
-                        console.log(data);
-                        
-                        }
-                        });
-
-                      
-                      
-                      
-                        $('#filtereddata').append(' <div class="card border-success mb-3" style="max-width: 18rem;"><div class="card-header bg-transparent border-success">'+bsecodes.bse+'</div><div class="card-body text-success"><h5 class="card-title">Report card</h5><div><strong>Eps(Rs):</strong> <span id="eps" class="tp"></span></div>
-                         <div><strong>Sales :</strong> <span id="sales" class="tp"></span></div>
-                         <div><strong>Face-Value :</strong> <span id="facevalue" class="tp"></span></div>
-                         <div><strong>Net Profit(cr) :</strong> <span id="netprofit" class="tp"></span></div></div><div class="card-footer bg-transparent border-success">Footer</div></div>');
-                      
-                  })
+           });
                   
                
 
@@ -154,8 +135,7 @@
 	  
         
 
-	</script>
-   
+    });
     
     
     

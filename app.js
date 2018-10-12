@@ -85,11 +85,11 @@ app.post("/register",function(req,res){
   console.log(req.body);
 
     User.register(new User({ 
-     username:req.body.email
+     username:req.body.username
                          }),req.body.password,function(err,user){
                 if(err){
                     console.log(err);
-                    return res.render("register");
+                    return res.render("signup");
                 }
                 passport.authenticate("local")(req,res,function(){
                       res.redirect("/profile");
@@ -123,16 +123,46 @@ app.get("/getstockname",function(req,res){
 });
 // get stock report card
 app.get("/api/reportcard",pgconect.reportcard);
-
-<<<<<<< HEAD
-//tp ocrd
-app.get("/ocrd",function(req,res){
-    res.render('ocrd');
-})
-
-=======
+//filter for analysis page
 app.get("/api/filter",pgconect.analyze);
->>>>>>> beca17476f3864f0104664061e5c1cec51a47913
+// add to watch list 
+app.get("/api/addtowatch",function(req,res){
+    var bsecode = req.query.bsecode;
+    var username = req.user.username;
+
+    console.log("bse "+bsecode+"  username "+username);
+
+    User.update(
+        { username: req.user.username }, 
+        { $push: { watchlist: req.query.bsecode } },
+        function(err,data){
+            console.log(data);
+        }
+    );
+
+});
+// add to portfolio
+app.get("/api/addtoportfolio",function(req,res){
+    var bsecode = req.query.bsecode;
+    var username = req.user.username;
+      console.log(req.query);
+    console.log("bse "+bsecode+"  username "+username);
+
+    User.update(
+        { username: req.user.username }, 
+        { $push: { portfolio: {  bsecode:req.query.bsecode,
+            stockname:req.query.stockname,
+            numberofstocks:req.query.numberofstocks,
+            boughtat:req.query.boughtat
+          } } },
+        function(err,data){
+            console.log(data);
+        }
+    );
+
+})
+// get stock by particular bsecode
+app.get("/api/stockbybse",pgconect.stockbybse);
 
 
 
@@ -165,6 +195,10 @@ app.get("/api/filter",pgconect.analyze);
 
 
 
-app.listen(process.env.PORT,process.env.IP,function(req,res){
+
+
+
+
+app.listen(3000,function(req,res){
     console.log("server has started");
 })
