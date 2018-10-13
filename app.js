@@ -163,9 +163,14 @@ app.get("/api/addtoportfolio",function(req,res){
 })
 // get stock by particular bsecode
 app.get("/api/stockbybse",pgconect.stockbybse);
-
-
-
+// datatable - > balancesheet api with bsecode and year
+app.get("/api/datatable/balancesheet",pgconect.balancesheettable);
+// datatable - > cashflow api with bsecode and year
+//app.get("/api/datatable/cashflow",pgconect.cashflowtable);
+// datatable - > profitloss api with bsecode and year
+app.get("/api/datatable/profitloss",pgconect.profitlosstable);
+// datatable - > quarter api with bsecode and year
+//app.get("/api/datatable/quarter",pgconect.quartertable);
 
 
 

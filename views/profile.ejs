@@ -42,7 +42,7 @@
 
 
 function  cont(){
-
+    $('#myTabContent').children().remove();
     $('#filteredddata').children().remove();
     $('#myTabContent').append('<table  id="sharetable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">BSE-CODE</th><th scope="col">NAME</th><th scope="col">Current Price</th><th scope="col">Quantity</th><th scope="col">Bought at</th><th scope="col">Net</th></tr></table>');
          

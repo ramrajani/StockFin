@@ -1,7 +1,7 @@
 <% include partials/header.ejs %>
 <% include partials/middle.ejs %>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 	
 <div class="container">
 <div style="padding-top:3%">
@@ -37,11 +37,26 @@
                 </div>
               </div>
               </div>
-              <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
+
+              <div class="row">
+                    <div class="col-md-12">
+                         <h3> Balancesheet (All values in cr(inr))</h3>
+                        <div id="balancesheet" style="padding-top:1%; width: 100%;overflow-x: scroll; box-sizing: content-box;"></div>
+
+                    </div>
+              </div>
+              <div class="row">
+                    <div class="col-md-12">
+                              <h3> Profit and Loss Statement (All values in cr(inr))</h3>
+                              <div id="profitloss" style="padding-top:1%; width: 100%;overflow-x: scroll; box-sizing: content-box;"></div> 
+                    </div>
+              </div>
 </div>
 
 
+<div id="cashflow"></div>
+<div id="quaters"></div>
 
 
 <script>
@@ -196,47 +211,6 @@ function gettoday(){
 
 }
 
-        var dps = []; // dataPoints
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title :{
-                text: "Dynamic Data"
-            },
-            axisY: {
-                includeZero: false
-            },      
-            data: [{
-                type: "line",
-                dataPoints: dps
-            }]
-        });
-        
-        var xVal = 0;
-        var yVal = 100; 
-        var updateInterval = 1000;
-        var dataLength = 20; // number of dataPoints visible at any point
-        
-       function updateChart(count) {
-        
-            count = count || 1;
-        
-            for (var j = 0; j < count; j++) {
-                yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-                dps.push({
-                    x: xVal,
-                    y: yVal
-                });
-                xVal++;
-            }
-        
-            if (dps.length > dataLength) {
-                dps.shift();
-            }
-        
-            chart.render();
-        };
-        
-        updateChart(dataLength);
-        setInterval(function(){updateChart()}, updateInterval);
         
 
 
@@ -315,7 +289,79 @@ function gettoday(){
                
 
                           
-              })    
+              });
+              
+              
+
+function balancesheet(){
+   
+      $('#balancesheet').append('<table  id="balancesheettable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">YEAR</th><th scope="col">reserves</th><th scope="col">receivables</th><th scope="col">facevalue</th><th scope="col">equitysharecapital</th><th scope="col">netblock</th><th scope="col">borrowings</th><th scope="col">capitalworkingprogress</th><th scope="col">otherassets</th><th scope="col">otherliabilties</th><th scope="col">investments</th><th scope="col">total</th><th scope="col">cashbank</th><th scope="col">equityshares</th><th scope="col">newbonusshares</th><th scope="col">inventory</th></tr></table>');
+      var urlParams = new URLSearchParams(location.search);
+                var a = urlParams.get('bse');
+                var i=2008;
+   for(;i<2018;i++){
+         $.ajax({
+                  url:location.origin+"/api/datatable/balancesheet?bsecode="+a+"&year="+i,
+                  type:"GET",
+                  dataType: 'json',
+                  data:{},
+                  headers: {
+                  'Content-Type':'application/json' 
+                  },
+                  success:function(data) {
+                  console.log(data);
+                  data=data[0];
+                  
+                   
+                  $('#balancesheettable').append('<tr><th scope="col">'+data.year+'</th><th scope="col">'+data.reserves+'</th><th scope="col">'+data.receivables+'</th><th scope="col">'+data.facevalue+'</th><th scope="col">'+data.equitysharecapital+'</th><th scope="col">'+data.netblock+'</th><th scope="col">'+data.borrowings+'</th><th scope="col">'+data.capitalworkingprogress+'</th><th scope="col">'+data.otherassets+'</th><th scope="col">'+data.otherliabilties+'</th><th scope="col">'+data.investments+'</th><th scope="col">'+data.total+'</th><th scope="col">'+data.cashbank+'</th><th scope="col">'+data.equityshares+'</th><th scope="col">'+data.newbonusshares+'</th><th scope="col">'+data.inventory+'</th></tr>')
+     
+                                  }
+                             });
+        
+     
+
+
+   }
+
+
+}
+
+function profitloss(){
+      $('#profitloss').append('<table  id="profitlosstable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">YEAR</th><th scope="col">othermfr</th><th scope="col">powerandfuel</th><th scope="col">sellingandadmin</th><th scope="col">otherexpenses</th><th scope="col">employeecost</th><th scope="col">otherincome</th><th scope="col">tax</th><th scope="col">beforetax</th><th scope="col">interest</th><th scope="col">dividendamount</th><th scope="col">depreciation</th><th scope="col">sales</th><th scope="col">changeininventory</th><th scope="col">netprofit</th><th scope="col">rawmaterialcost</th><th scope="col">eps</th></tr></table>');
+      
+      var urlParams = new URLSearchParams(location.search);
+                var a = urlParams.get('bse');
+                var i=2008;
+   for(;i<2018;i++){
+         $.ajax({
+                  url:location.origin+"/api/datatable/profitloss?bsecode="+a+"&year="+i,
+                  type:"GET",
+                  dataType: 'json',
+                  data:{},
+                  headers: {
+                  'Content-Type':'application/json' 
+                  },
+                  success:function(data) {
+                  console.log(data);
+                  data=data[0];
+                  
+                   
+                  $('#profitlosstable').append('<tr><th scope="col">'+data.year+'</th><th scope="col">'+data.othermfr+'</th><th scope="col">'+data.powerandfuel+'</th><th scope="col">'+data.sellingandadmin+'</th><th scope="col">'+data.otherexpenses+'</th><th scope="col">'+data.employeecost+'</th><th scope="col">'+data.otherincome+'</th><th scope="col">'+data.tax+'</th><th scope="col">'+data.beforetax+'</th><th scope="col">'+data.interest+'</th><th scope="col">'+data.dividendamount+'</th><th scope="col">'+data.depreciation+'</th><th scope="col">'+data.sales+'</th><th scope="col">'+data.changeininventory+'</th><th scope="col">'+data.netprofit+'</th><th scope="col">'+data.rawmaterialcost+'</th><th scope="col">'+data.eps+'</th></tr>')
+     
+                                  }
+                             });
+        
+     
+
+
+   }
+
+}
+balancesheet();
+profitloss();
+
+
+              
 </script>
 
 

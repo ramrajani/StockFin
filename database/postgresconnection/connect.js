@@ -127,6 +127,84 @@ module.exports={
     })
 
 
+   },
+
+   balancesheettable:function(req,res){
+
+    var year = req.query.year;
+    var bsecode = req.query.bsecode;
+
+    var query = {
+      text: 'SELECT * FROM balancesheet'+year+' WHERE bse = $1',
+      values:[bsecode]
+     
+    }
+
+    client.query(query, (err, resp) => {
+      
+      console.log(err,resp);
+      
+      if(!err){
+
+      
+          if(resp){
+              if(resp.rows){
+                resp.rows[0].year=year;
+                console.log(resp.rows);
+                console.log(resp);
+                 
+    
+                res.send(resp.rows);
+                
+              }
+            
+
+          }
+          
+      }
+    })
+
+
+
+
+   },
+   profitlosstable:function(req,res){
+
+    var year = req.query.year;
+    var bsecode = req.query.bsecode;
+
+    var query = {
+      text: 'SELECT * FROM profitloss'+year+' WHERE bse = $1',
+      values:[bsecode]
+     
+    }
+
+    client.query(query, (err, resp) => {
+      
+      console.log(err,resp);
+      
+      if(!err){
+
+      
+          if(resp){
+           if(resp.rows){
+            resp.rows[0].year=year;
+            console.log(resp.rows);
+            console.log(resp);
+             
+
+            res.send(resp.rows);
+            
+
+           }
+            
+
+          }
+          
+      }
+    })
+
+
    }
 
 
