@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ramrajani/StockFin#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "cheerio-eq": "^1.0.1",

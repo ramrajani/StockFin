@@ -18,8 +18,9 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-2">
-            <button class="profile-edit-btn"><a href="/editprofile"> edit</a></button>
+        <div class="col-md-5" style="padding:1%">
+            <input typ="email"  id="emailtosend" cols="10" placeholder="email .." style="border-radius:10%">
+            <button class="profile-edit-btn" id="submitmail" style="background-color:salmon;border-radius:50%">Submit</button>
         </div>
     </div>
        
@@ -44,7 +45,7 @@
 function  cont(){
     $('#myTabContent').children().remove();
     $('#filteredddata').children().remove();
-    $('#myTabContent').append('<table  id="sharetable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">BSE-CODE</th><th scope="col">NAME</th><th scope="col">Current Price</th><th scope="col">Quantity</th><th scope="col">Bought at</th><th scope="col">Net</th></tr></table>');
+    $('#myTabContent').append('<table  id="sharetable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">BSE-CODE</th><th scope="col">NAME</th><th scope="col">Current Price</th><th scope="col">Quantity</th><th scope="col">Bought at</th><th scope="col">Net-Cost</th><th scope="col">Today-value</th><th scope="col">Gain/Loss</th></tr></table>');
          
   
      user.portfolio.forEach(function(portfolio){
@@ -71,7 +72,8 @@ function  cont(){
                                          if(key.includes("4")){
                                                $('#stockpriceshow').html(val[key]);
                                                console.log(val[key]);
-       $('#sharetable').append('<tr><th scope="col">'+portfolio.bsecode+'</th><th scope="col">'+portfolio.stockname+'</th><th scope="col">'+val[key]+'</th><th scope="col">'+portfolio.numberofstocks+'</th><th scope="col">'+portfolio.boughtat+'</th><th scope="col">net</th></tr>')
+                                               var netval = portfolio.numberofstocks*val[key]-portfolio.numberofstocks*portfolio.boughtat;
+       $('#sharetable').append('<tr><th scope="col">'+portfolio.bsecode+'</th><th scope="col">'+portfolio.stockname+'</th><th scope="col">'+val[key]+'</th><th scope="col">'+portfolio.numberofstocks+'</th><th scope="col">'+portfolio.boughtat+'</th><th scope="col">'+portfolio.numberofstocks*portfolio.boughtat+'</th><th scope="col">'+portfolio.numberofstocks*val[key]+'</th><th scope="col">'+netval+'</th></tr>')
 
                                        
                                          }
@@ -98,7 +100,7 @@ function  cont(){
 
 function gettoday(){
     var today = new Date();
-    var dd = today.getDate()-1;
+    var dd = today.getDate()-3;
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
     
@@ -209,6 +211,38 @@ user.watchlist.forEach(function(watch){
 
 })
 
+
+
+$('#submitmail').on("click",function(){
+
+  var email  = $('#emailtosend').val();
+  var htmldata = $('#myTabContent').html().trim(); 
+  console.log(htmldata);
+  console.log(email);
+  if(email.includes('@')){
+    $.ajax({
+        url:location.origin+"/api/sendmail?email="+email+"&htmldata="+htmldata,
+        type:"GET",
+        dataType: 'json',
+        data:{},
+        headers: {
+        'Content-Type':'application/json' 
+        },
+        success:function(data) {
+
+       }});
+       alert("email sent successfully");
+    
+
+  }else{
+      alert("please enter correct email id");
+  }
+   
+
+
+
+
+})
 
 
 </script>

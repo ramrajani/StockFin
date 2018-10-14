@@ -8,6 +8,7 @@ const stockname = require("./api/stockname"),
         bodyParser  = require('body-parser'),
         stockdetails = require('./api/myapi/stockdetails.js'),
         pgconect  = require("./database/postgresconnection/connect");
+var emailsubscribe = require('./api/myapi/sendmail.js');
 
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -172,6 +173,9 @@ app.get("/api/datatable/profitloss",pgconect.profitlosstable);
 // datatable - > quarter api with bsecode and year
 //app.get("/api/datatable/quarter",pgconect.quartertable);
 
+
+//api to send mail of portfolio
+app.get("/api/sendmail",emailsubscribe.sendmymail);
 
 
 
