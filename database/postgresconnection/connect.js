@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg');
-const connectionString = 'postgres://postgres:tushar@localhost/stockfin3';
+const connectionString = 'postgres://postgres:ram@localhost/stockfindb';
 
 
 const client = new Client({
@@ -54,7 +54,7 @@ module.exports={
     console.log(pricerangestart && pricerangeend);
 
        if(pricerangestart && pricerangeend){
-<<<<<<< HEAD
+
            query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
        }else if(epsstart && epsend){
            query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
@@ -65,12 +65,11 @@ module.exports={
        }else if(equitystart && equityend){
            query=""
        }
-=======
-        query+=' s.price BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND ';
-    }
-    console.log(epsstart && epsend);
+      query+=' s.price BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND ';
+   
+   
     if(epsstart && epsend){
-     query+=' p.eps BETWEEN '+epsstart+' AND '+epsend+' AND ';
+      query+=' p.eps BETWEEN '+epsstart+' AND '+epsend+' AND ';
     } 
     console.log(salesstart && salesend)
     if(salesstart && salesend){
@@ -80,7 +79,7 @@ module.exports={
     if(facevaluestart && facevalueend){
      query+=' b.facevalue BETWEEN '+facevaluestart+' AND '+facevalueend+' AND ';
     }
->>>>>>> 23c924fc857471b8beb3ac80c01c87cbc2b3fd73
+
     var today = new Date();
     var yyyy = today.getFullYear();
     var ypm1 = today.getFullYear()-1;
@@ -95,15 +94,14 @@ module.exports={
 
         query=query.substring(0,query.length-4);
 
-<<<<<<< HEAD
 
         var queryto = {
       text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse '+query,
-      values:[epsstart,epsend]
+     
      
     }
 
-    client.query(queryto, (err, resp) => {
+  
       console.log(err,resp);
         var queryto = {
       text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse WHERE p.bse IN (SELECT p.bse  FROM profitloss'+ypm1+' p  '+query+') ',
@@ -127,7 +125,10 @@ module.exports={
     })
        
        
-   },
+   }
+   
+  ,
+
 
    stockbybse:function(req,res){
 

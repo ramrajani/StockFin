@@ -6,9 +6,16 @@
 <div class="container">
     
         <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="addfilter" class="positive ui button" style:"position: absolute;">ADD Filter</button></div>
-   <div class="filterpouch">     
+  
+       
+        <div class="filterpouch">     
     
          
+    </div>
+    <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="addsector" class="positive ui button" style:"position: absolute;">ADD Sector</button></div>
+
+    <div class="row" id="sectordiv">
+
     </div>
     
      <div style="text-align: center;padding-top:2%;padding-bottom:4%"><button id="submitfilter" class="positive ui button">Submit</button></div>
@@ -24,6 +31,7 @@
 </div>
 
 <script>
+
     var count=0;
    
         var user = <%- JSON.stringify(CurrentUser) %>+"";
@@ -32,7 +40,7 @@
     
     
     $('#addfilter').on('click',function(){
-         count++;
+        count++;     
           $('.filterpouch').append('<div class="row" id="row'+count+'value"><div class="col-md-5 filteroption" ><select class="ui fluid  dropdown" id="filters'+count+'row"><option>Price Range</option><option>EPS</option><option>Sales</option><option>Face-Value</option><option>Equity</option><option>Net-Profit</option></select></div><div class="col-md-1"></div><div class="col-md-2"><input type="text" id="amount'+count+'" readonly style="border:0; color:#1f69f6; font-weight:bold;"></div><div id="slider-range'+count+'" class="col-md-4"></div></div>');    
         
          $( function() {
@@ -49,16 +57,42 @@
 			" - ₹" + $( "#slider-range"+count ).slider( "values", 1 ) );
     } );
          
-    
-    
+  
+
+   
     
     })
 
-    $('select').on('change',function(){
-        console.log(val);
-    })
-    
-    
+    $('#addsector').on('click',function(){
+        count++;
+      $('#sectordiv').children().remove();
+
+         $.ajax({
+                                                url:location.origin+"/api/datatable/sectordata",
+                                                type:"GET",
+                                                dataType: 'json',
+                                                data:{},
+                                                headers: {
+                                                    'Content-Type':'application/json'
+                                              },
+                                             success:function(data) {
+                                              
+
+                                                     $('#datasector').append('<select id="datasectorvalue" class="form-control selectpicker" data-live-search="true"></select>');
+
+                                                     data.data.map(function(e){
+                                                        vendor_username +='<option value="'+e.user.id+'">'+e.user.username+'</option>'
+                                                    })
+                                               
+                                                     $('#value_type'+rownum).append(vendor_username);
+                                                    $('#value_type'+rownum).selectpicker('refresh');
+
+                                                                                          }
+                                        });
+
+       $('#sectordiv').append('<div class="col-md-5 filteroption" ><select class="ui fluid dropdown" id="filters'+count+'row"><option>Sector</option></select></div><div class="col-md-1"></div><div class="col-md-5" id="datasector"></div>');    
+        
+    });
     $('#submitfilter').on("click",function(){
         
          $('#filtereddata').children().remove();
@@ -83,6 +117,9 @@
            }
            else if($('#filters'+i+'row').val()=='Equity'){
                linkadded+="equitystart="+$('#slider-range'+i).slider("values",0)+"&equityend="+$('#slider-range'+i).slider("values",1);
+           }
+           else if($('#filters'+i+'row').val()=='Sector'){
+            linkadded+='sector='+$('');
            }
             
             linkadded+="&"
