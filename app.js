@@ -176,7 +176,8 @@ app.get("/api/datatable/profitloss",pgconect.profitlosstable);
 
 //api to send mail of portfolio
 app.get("/api/sendmail",emailsubscribe.sendmymail);
-
+//api to get all sectors
+app.get("/api/datatable/sectordata",pgconnect.sectordata);
 
 
 
