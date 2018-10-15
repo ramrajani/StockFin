@@ -50,23 +50,13 @@ module.exports={
        var equitystart =req.query.equitystart;
        var equityend =req.query.equityend;
       
-       
+       var sector = req.query.sector;
     console.log(pricerangestart && pricerangeend);
+    if(pricerangestart && pricerangeend){
 
-       if(pricerangestart && pricerangeend){
-
-           query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
-       }else if(epsstart && epsend){
-           query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
-       }else if(salesstart && salesend){
-           query=""
-       }else if(facevaluestart && facevalueend){
-           query=""
-       }else if(equitystart && equityend){
-           query=""
-       }
-      query+=' s.price BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND ';
-   
+      query+=' s.price BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
+  }
+     
    
     if(epsstart && epsend){
       query+=' p.eps BETWEEN '+epsstart+' AND '+epsend+' AND ';
@@ -78,6 +68,9 @@ module.exports={
     console.log(facevaluestart && facevalueend);
     if(facevaluestart && facevalueend){
      query+=' b.facevalue BETWEEN '+facevaluestart+' AND '+facevalueend+' AND ';
+    }
+    if(sector){
+      query+=" s.sector='"+sector+"' AND "
     }
 
     var today = new Date();
@@ -97,14 +90,6 @@ module.exports={
 
         var queryto = {
       text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse '+query,
-     
-     
-    }
-
-  
-      console.log(err,resp);
-        var queryto = {
-      text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse WHERE p.bse IN (SELECT p.bse  FROM profitloss'+ypm1+' p  '+query+') ',
      
      
     }
@@ -255,8 +240,7 @@ module.exports={
       
           if(resp){
            if(resp.rows){
-            resp.rows[0].year=year;
-            console.log(resp.rows);
+           console.log(resp.rows);
             console.log(resp);
              
 
