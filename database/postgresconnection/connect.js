@@ -51,9 +51,9 @@ module.exports={
        
        
        if(pricerangestart && pricerangeend){
-           query=""
+           query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
        }else if(epsstart && epsend){
-           query=""
+           query='s.pricerange BETWEEN '+pricerangestart+' AND '+pricerangeend+' AND';
        }else if(salesstart && salesend){
            query=""
        }else if(facevaluestart && facevalueend){
@@ -75,13 +75,13 @@ module.exports={
 
 
 
-        var query = {
-      text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse WHERE p.bse IN (SELECT p.bse  FROM profitloss'+ypm1+' p  WHERE p.eps BETWEEN   $1 and $2) ',
+        var queryto = {
+      text: 'SELECT p.bse,p.eps,p.salea,p.netprofit,b.facevalue,s.name FROM profitloss'+ypm1+' p LEFT JOIN balancesheet'+ypm1+' b ON p.bse =b.bse LEFT JOIN stockname s ON p.bse=s.bse '+query,
       values:[epsstart,epsend]
      
     }
 
-    client.query(query, (err, resp) => {
+    client.query(queryto, (err, resp) => {
       console.log(err,resp);
       if(!err){
           if(resp){
