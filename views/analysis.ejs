@@ -48,7 +48,7 @@ console.log("here");
     $('#addfilter').on('click',function(){
     
         count++;     
-          $('.filterpouch').append('<div class="row" id="row'+count+'value"><div class="col-md-5 filteroption" ><select class="ui fluid  dropdown" id="filters'+count+'row"><option>Price Range</option><option>EPS</option><option>Sales</option><option>Face-Value</option><option>Equity</option><option>Net-Profit</option></select></div><div class="col-md-1"></div><div class="col-md-2"><input type="text" id="amount'+count+'" readonly style="border:0; color:#1f69f6; font-weight:bold;"></div><div id="slider-range'+count+'" class="col-md-4"></div></div>');    
+          $('.filterpouch').append('<div class="row" id="row'+count+'value"><div class="col-md-5 filteroption" ><select class="ui fluid  dropdown" id="filters'+count+'row"><option>Price Range</option><option>EPS</option><option>Sales</option><option>Face-Value</option></div><div class="col-md-1"></div><div class="col-md-2"><input type="text" id="amount'+count+'" readonly style="border:0; color:#1f69f6; font-weight:bold;"></div><div id="slider-range'+count+'" class="col-md-4"></div></div>');    
          $( function() {
 		$( "#slider-range"+count).slider({
 			range: true,
