@@ -70,25 +70,21 @@
                                    console.log(data[key][datee]);
                                    var str2="close";
                                    for(key in val){
-                                        $('#openprice').val('');
-                                        $('#highprice').val('');
-                                        $('#lowprice').val('');
-                                        $('#volume').val('');
                                          if(key.includes("4")){
                                                $('#marketcap').html(val[key]);
                                                console.log(val[key]);
                                          }
                                              if(key.includes("1")){
-                                               $('#openprice').append(val[key]);
+                                               $('#openprice').html(val[key]);
                                          }
                                          if(key.includes("2")){
-                                               $('#highprice').append(val[key]);
+                                               $('#highprice').html(val[key]);
                                          }
                                          if(key.includes("3")){
-                                               $('#lowprice').append(val[key]);
+                                               $('#lowprice').html(val[key]);
                                          }
                                          if(key.includes("6")){
-                                               $('#volume').append(val[key]);
+                                               $('#volume').html(val[key]);
                                          }
                                    }
                              }
