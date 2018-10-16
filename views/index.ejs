@@ -103,9 +103,15 @@ sensexvalue();
 setInterval(sensexvalue,100000);
 function gettoday(){
     var today = new Date();
-    var tim = today.getHours();
-    console.log(tim);
-    var dd = today.getDate()-1;
+    var n = today.getHours();
+    var p = today.getMinutes();
+    var dd ="";
+    console.log(n+" "+p);
+    if(n<10){
+       dd = today.getDate()-1;
+    }else{
+       dd = today.getDate();
+    }
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
     
@@ -117,6 +123,7 @@ function gettoday(){
         mm = '0'+mm
     } 
     var compdate = yyyy+"-"+mm+"-"+dd;
+    console.log(compdate);
     return(compdate);
     
 

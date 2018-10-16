@@ -192,7 +192,17 @@ setInterval(priceupdate(valstock),5000);
 
 function gettoday(){
     var today = new Date();
-    var dd = today.getDate()-1;
+    var n = today.getHours();
+    var p = today.getMinutes();
+    var dd="";
+    console.log(n+" "+p);
+    if(n<10){
+          
+       dd = today.getDate()-1;
+    }else{
+       dd = today.getDate();
+    }
+   
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
     
@@ -204,6 +214,7 @@ function gettoday(){
         mm = '0'+mm
     } 
     var compdate = yyyy+"-"+mm+"-"+dd;
+    console.log(compdate);
     return(compdate);
     
 
@@ -315,7 +326,7 @@ function balancesheet(){
                   data=data[0];
                   
                    
-                  $('#balancesheettable').append('<tr><th scope="col">'+data.year+'</th><th scope="col">'+data.reserves+'</th><th scope="col">'+data.receivables+'</th><th scope="col">'+data.facevalue+'</th><th scope="col">'+data.equitysharecapital+'</th><th scope="col">'+data.netblock+'</th><th scope="col">'+data.borrowings+'</th><th scope="col">'+data.capitalworkingprogress+'</th><th scope="col">'+data.otherassets+'</th><th scope="col">'+data.otherliabilties+'</th><th scope="col">'+data.investments+'</th><th scope="col">'+data.total+'</th><th scope="col">'+data.cashbank+'</th><th scope="col">'+data.equityshares+'</th><th scope="col">'+data.newbonusshares+'</th><th scope="col">'+data.inventory+'</th></tr>')
+                  $('#balancesheettable').append('<tr style="background:white;color:blue"><th scope="col">'+data.year+'</th><th scope="col">'+data.reserves+'</th><th scope="col">'+data.receivables+'</th><th scope="col">'+data.facevalue+'</th><th scope="col">'+data.equitysharecapital+'</th><th scope="col">'+data.netblock+'</th><th scope="col">'+data.borrowings+'</th><th scope="col">'+data.capitalworkingprogress+'</th><th scope="col">'+data.otherassets+'</th><th scope="col">'+data.otherliabilties+'</th><th scope="col">'+data.investments+'</th><th scope="col">'+data.total+'</th><th scope="col">'+data.cashbank+'</th><th scope="col">'+data.equityshares+'</th><th scope="col">'+data.newbonusshares+'</th><th scope="col">'+data.inventory+'</th></tr>')
      
                                   }
                              });
@@ -348,7 +359,7 @@ function profitloss(){
                   data=data[0];
                   
                    
-                  $('#profitlosstable').append('<tr><th scope="col">'+data.year+'</th><th scope="col">'+data.othermfr+'</th><th scope="col">'+data.powerandfuel+'</th><th scope="col">'+data.sellingandadmin+'</th><th scope="col">'+data.otherexpenses+'</th><th scope="col">'+data.employeecost+'</th><th scope="col">'+data.otherincome+'</th><th scope="col">'+data.tax+'</th><th scope="col">'+data.beforetax+'</th><th scope="col">'+data.interest+'</th><th scope="col">'+data.dividendamount+'</th><th scope="col">'+data.depreciation+'</th><th scope="col">'+data.salea+'</th><th scope="col">'+data.changeininventory+'</th><th scope="col">'+data.netprofit+'</th><th scope="col">'+data.rawmaterialcost+'</th><th scope="col">'+data.eps+'</th></tr>')
+                  $('#profitlosstable').append('<tr style="background:white;color:blue"><th scope="col">'+data.year+'</th><th scope="col">'+data.othermfr+'</th><th scope="col">'+data.powerandfuel+'</th><th scope="col">'+data.sellingandadmin+'</th><th scope="col">'+data.otherexpenses+'</th><th scope="col">'+data.employeecost+'</th><th scope="col">'+data.otherincome+'</th><th scope="col">'+data.tax+'</th><th scope="col">'+data.beforetax+'</th><th scope="col">'+data.interest+'</th><th scope="col">'+data.dividendamount+'</th><th scope="col">'+data.depreciation+'</th><th scope="col">'+data.salea+'</th><th scope="col">'+data.changeininventory+'</th><th scope="col">'+data.netprofit+'</th><th scope="col">'+data.rawmaterialcost+'</th><th scope="col">'+data.eps+'</th></tr>')
      
                                   }
                              });
