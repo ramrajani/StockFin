@@ -6,25 +6,26 @@
 <div id="login">
     <h3 class="text-center text-white pt-5"></h3>
     <div class="container">
-        <div id="login-row" class="row justify-content-center align-items-center">
-            <div id="login-column" class="col-md-6" style="border: 2px solid #4e7e80;border-radius: 25%;">
+        <div id="login-row" class="row justify-content-center align-items-center" style="color:#B71C1C">
+            <div id="login-column" class="col-md-6" style="border: 2px solid #4e7e80;border-radius: 25%;background:radial-gradient(#FFD54F,#FFECB3);">
                 <div id="login-box" class="col-md-12" >
                     <form id="login-form" class="form" action="/register" method="POST">
-                        <h2 class="text-center text-secondary">Sign Up</h2>
+                        <h2 class="text-center">Sign Up</h2>
                         <div class="form-group">
-                            <label for="username" class="text-secondary">Email-id:</label><br>
+                            <label for="username">Email-id:</label><br>
                             <input type="text" name="username" id="username" class="form-control"required>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-secondary">Password:</label><br>
+                            <label for="password">Password:</label><br>
                             <input type="password" name="password" id="password" class="form-control" required>
                         </div>
                             <div class="form-group">
-                            <label for="password" class="text-secondary">Confirm Password:</label><br>
-                            <input type="password" name="madharchod" id="passwordnew" class="form-control" required>
+                            <label for="password">Confirm Password:</label><br>
+                            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" required>
+                            <span id='message'></span>
                         </div>
                         <div class="form-group">
-                           <center><input type="submit" name="submit" class="btn btn-secondary btn-md" value="Submit"></center>
+                           <center><input type="submit" name="submit" class="btn btn-md" style="background:#B71C1C;color:white" id="submit" value="Submit" disabled></center>
                             
                         </div>
                         
@@ -46,5 +47,24 @@
     </div>
 </div>
 </div>
+
+<script>
+ $('#password, #confirmpassword').on('keyup', function () {
+  if ($('#password').val() == $('#confirmpassword').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+
+
+$('#message').on('DOMSubtreeModified',function(){
+  
+  if($('#message').html()=='Matching'){
+      $('#submit').prop('disabled', false);
+  }else{
+      $('#submit').prop('disabled', true);
+  }
+});
+</script>
 
 <% include partials/footer.ejs %>

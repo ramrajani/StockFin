@@ -1,33 +1,52 @@
 <% include partials/header.ejs %>
 <% include partials/middle.ejs %>
 
-<div class="container">
+<div class="container" style="  background: linear-gradient(to right, #2980b9, #6dd5fa, #2980b9);height:100%">
     
   <div class="row " style="padding-top:5%">
-
-        <div class="col-md-5 square" style="border: 2px solid #4e7e80;border-radius: 15%;">
+     <div class="col-md-1"></div>
+        <div class="col-md-4 square" style="border: 2px solid #4e7e80;border-radius: 15%;background-color: #e6e6e8;">
                     <div style="padding-top:3%">                
-                     <b>SENSEX:</b> <span><h1 id="marketcap"></h1></span>
+                    <h2><strong style="color:#870000"> SENSEX:&nbsp;</strong><span id="marketcap"></span></h2>
+                    <h4>
+                    <div><span style="color:#0091EA"><strong>Open : </strong></span><span id="openprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>High : </strong></span><span id="highprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>Low : </strong></span><span id="lowprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>Volume :</strong></span><span id="volume" style="color:#4A148C"></span></div>
+</h4>
                    </div>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-5 square" style="border: 2px solid #4e7e80;border-radius: 15%;   width: 100%;overflow: hidden;">
+             <div class="col-md-1"></div>
+              <div class="col-md-4 square" style="border: 2px solid #4e7e80;border-radius: 15%;   width: 100%;overflow: hidden;background-color: #e6e6e8;">
                   <div style="padding-top:3%; width: 100%;height: 100%;overflow-y: scroll; padding-right: 17px;box-sizing: content-box;" id="scrnews" >
                    <table  border="0" id="newsTable" style="text-color:white">
                 <thead>
-                <tr><th>Breaking News</th></tr>
+                <tr><th><h4><strong style="color:#870000">Breaking News</strong></h4></th></tr>
                 </thead>
               
             </table>
                    </div>
                   </div>
-                  <div class="col-md-1"></div>
+                  
 
+</div>
+<div class="row"></div>
+<div class="row"></div>
+<div class="row" style="padding-top:10%">
+    <div class="col-md-3">
+        
+    </div> 
+     <div class="col-md-6">
+         <form action="/analysis">
+             <input type="submit" value="Search For Best Stock Here" class="btn btn-block" style="background: linear-gradient(to right, #cac531, #f3f9a7);font-size: 1.5rem;font-weight: 600">
+         </form>
+     </div>
+    
 </div>
 </div>
 
 
-<
+
 
 
 
@@ -51,9 +70,25 @@
                                    console.log(data[key][datee]);
                                    var str2="close";
                                    for(key in val){
+                                        $('#openprice').val('');
+                                        $('#highprice').val('');
+                                        $('#lowprice').val('');
+                                        $('#volume').val('');
                                          if(key.includes("4")){
                                                $('#marketcap').html(val[key]);
                                                console.log(val[key]);
+                                         }
+                                             if(key.includes("1")){
+                                               $('#openprice').append(val[key]);
+                                         }
+                                         if(key.includes("2")){
+                                               $('#highprice').append(val[key]);
+                                         }
+                                         if(key.includes("3")){
+                                               $('#lowprice').append(val[key]);
+                                         }
+                                         if(key.includes("6")){
+                                               $('#volume').append(val[key]);
                                          }
                                    }
                              }
@@ -72,7 +107,9 @@ sensexvalue();
 setInterval(sensexvalue,100000);
 function gettoday(){
     var today = new Date();
-    var dd = today.getDate();
+    var tim = today.getHours();
+    console.log(tim);
+    var dd = today.getDate()-1;
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
     

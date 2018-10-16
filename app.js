@@ -209,6 +209,6 @@ app.get("/api/datatable/sectordata",pgconect.sectordata);
 
 
 
-app.listen(3000,function(req,res){
+app.listen(process.env.PORT,process.env.IP,function(req,res){
     console.log("server has started");
 })

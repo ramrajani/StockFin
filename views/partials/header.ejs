@@ -13,13 +13,22 @@
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
-	
+	<style>
+	  
+	  @media screen and (max-width: 350px) {
+  body {
+    overflow-y: scroll;
+  }
+}
+
+
+	</style>
 
 
   </head>
-<body>
+<body style="background: linear-gradient(#666633,#CCCC99); width:100%;height:100%">
 
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg  navbar-dark" style=" background: linear-gradient(to right, #870000, #190a05);">
         <span class="navbar-brand" href="/"><img src="https://pbs.twimg.com/profile_images/1028664054519279616/0w5yQ1Gk_400x400.jpg" width="35%" style="border-radius:50%"></span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -28,15 +37,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/"><h3>Home</h3> <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profile">Profile</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/profile"><h3>Profile</h3></a>
             </li>
             
-            <li class="nav-item">
+            <li class="nav-item active">
 
-                <a class="nav-link" href="/analysis">Analyze</a>
+                <a class="nav-link" href="/analysis"><h3>Analyze</h3></a>
               </li>
             <li class="nav-item dropdown">
              

@@ -5,8 +5,8 @@
 	
 <div class="container">
 <div style="padding-top:3%">
-        <div class="card">
-               <div> <h2 class="card-header" id="stocknameshow"></h2><div id="buttontoadd" style="float:right"></div></div>
+        <div class="card" style="border:2px solid #EEFF41;border-radius:10%">
+               <div> <h2 class="card-header" id="stocknameshow" style="color:#870000"></h2><div id="buttontoadd" style="float:right"></div></div>
                 
                 <div class="card-body">
                   <h3 class="card-title" id="stockpriceshow"></h3>
@@ -14,19 +14,19 @@
                   <div class="row">
                         <div class="col-md-6">
                   <p class="card-text" id="extradetails">
-                      <div><strong>Open : </strong> <span id="openprice"></span></div>
-                        <div><strong>High : </strong><span id="highprice"></span></div>
-                        <div><strong>Low : </strong><span id="lowprice"></span></div>
-                        <div><strong>Volume :</strong><span id="volume"></span></div>
+                      <div><span style="color:#0091EA"><strong>Open : </strong></span><span id="openprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>High : </strong></span><span id="highprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>Low : </strong></span><span id="lowprice" style="color:#4A148C"></span></div>
+                        <div><span style="color:#0091EA"><strong>Volume :</strong></span><span id="volume" style="color:#4A148C"></span></div>
                   </p>
             </div>
             <div class="col-md-4">
                    <div class="card">
-                         <h3>Report Card</h3>
-                         <div><strong>Eps(Rs):</strong> <span id="eps" class="tp"></span></div>
-                         <div><strong>Sales :</strong> <span id="sales" class="tp"></span></div>
-                         <div><strong>Face-Value :</strong> <span id="facevalue" class="tp"></span></div>
-                         <div><strong>Net Profit(cr) :</strong> <span id="netprofit" class="tp"></span></div>
+                         <h3 style="color:#4A148C">Report Card</h3>
+                         <div><span style="color:#870000"><strong>Eps(Rs):</span></strong> <span id="eps" class="tp" style="color:#0091EA"></span></div>
+                         <div><span style="color:#870000"><strong>Sales :</strong></span> <span id="sales" class="tp" style="color:#0091EA"></span></div>
+                         <div><span style="color:#870000"><strong>Face-Value :</strong></span> <span id="facevalue" class="tp" style="color:#0091EA"></span></div>
+                         <div><span style="color:#870000"><strong>Net Profit(cr) :</strong></span> <span id="netprofit" class="tp" style="color:#0091EA"></span></div>
                          
                    </div>
 
@@ -41,14 +41,14 @@
 
               <div class="row">
                     <div class="col-md-12">
-                         <h3> Balancesheet (All values in cr(inr))</h3>
+                         <h3 style="color:#FFFDE7"> Balancesheet (All values in cr(inr))</h3>
                         <div id="balancesheet" style="padding-top:1%; width: 100%;overflow-x: scroll; box-sizing: content-box;"></div>
 
                     </div>
               </div>
               <div class="row">
                     <div class="col-md-12">
-                              <h3> Profit and Loss Statement (All values in cr(inr))</h3>
+                              <h3 style="color:#FFFDE7"> Profit and Loss Statement (All values in cr(inr))</h3>
                               <div id="profitloss" style="padding-top:1%; width: 100%;overflow-x: scroll; box-sizing: content-box;"></div> 
                     </div>
               </div>
@@ -297,7 +297,7 @@ function gettoday(){
 
 function balancesheet(){
    
-      $('#balancesheet').append('<table  id="balancesheettable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">YEAR</th><th scope="col">reserves</th><th scope="col">receivables</th><th scope="col">facevalue</th><th scope="col">equitysharecapital</th><th scope="col">netblock</th><th scope="col">borrowings</th><th scope="col">capitalworkingprogress</th><th scope="col">otherassets</th><th scope="col">otherliabilties</th><th scope="col">investments</th><th scope="col">total</th><th scope="col">cashbank</th><th scope="col">equityshares</th><th scope="col">newbonusshares</th><th scope="col">inventory</th></tr></table>');
+      $('#balancesheet').append('<table  id="balancesheettable" class="table table-sm table-hover"><tr style="color:#870000;background:white"><th scope="col">YEAR</th><th scope="col">reserves</th><th scope="col">receivables</th><th scope="col">facevalue</th><th scope="col">equitysharecapital</th><th scope="col">netblock</th><th scope="col">borrowings</th><th scope="col">capitalworkingprogress</th><th scope="col">otherassets</th><th scope="col">otherliabilties</th><th scope="col">investments</th><th scope="col">total</th><th scope="col">cashbank</th><th scope="col">equityshares</th><th scope="col">newbonusshares</th><th scope="col">inventory</th></tr></table>');
       var urlParams = new URLSearchParams(location.search);
                 var a = urlParams.get('bse');
                 var i=2008;
@@ -329,7 +329,7 @@ function balancesheet(){
 }
 
 function profitloss(){
-      $('#profitloss').append('<table  id="profitlosstable" class="table table-sm table-hover"><tr class="table-primary"><th scope="col">YEAR</th><th scope="col">othermfr</th><th scope="col">powerandfuel</th><th scope="col">sellingandadmin</th><th scope="col">otherexpenses</th><th scope="col">employeecost</th><th scope="col">otherincome</th><th scope="col">tax</th><th scope="col">beforetax</th><th scope="col">interest</th><th scope="col">dividendamount</th><th scope="col">depreciation</th><th scope="col">sales</th><th scope="col">changeininventory</th><th scope="col">netprofit</th><th scope="col">rawmaterialcost</th><th scope="col">eps</th></tr></table>');
+      $('#profitloss').append('<table  id="profitlosstable" class="table table-sm table-hover"><tr style="color:#870000;background:white"><th scope="col">YEAR</th><th scope="col">othermfr</th><th scope="col">powerandfuel</th><th scope="col">sellingandadmin</th><th scope="col">otherexpenses</th><th scope="col">employeecost</th><th scope="col">otherincome</th><th scope="col">tax</th><th scope="col">beforetax</th><th scope="col">interest</th><th scope="col">dividendamount</th><th scope="col">depreciation</th><th scope="col">sales</th><th scope="col">changeininventory</th><th scope="col">netprofit</th><th scope="col">rawmaterialcost</th><th scope="col">eps</th></tr></table>');
       
       var urlParams = new URLSearchParams(location.search);
                 var a = urlParams.get('bse');

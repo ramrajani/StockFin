@@ -27,14 +27,8 @@ body {
     background-repeat: no-repeat;
 }
 table a{
-    color:#c34100;
+    color:#FF0099;
 }
 
 
-#chartdiv {
-  width: 50%;
-  height: 500px;
-}
-html { 
-    background-color: white;
-  }
+
